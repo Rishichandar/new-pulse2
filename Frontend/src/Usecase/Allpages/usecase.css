@@ -1,0 +1,69 @@
+#all-container{
+    width: 200px;
+    height: 200px;
+    margin-left: 150px;
+    margin-top: 100px;
+    border: 1px groove rgb(223, 230, 233);
+}#div-box{
+    
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Transparent border */
+    background: rgba(255, 255, 255, 0.15); /* Transparent background */
+    backdrop-filter: blur(5px); /* Background blur */
+    box-shadow: 2px 7px 7px 5 rgba(31, 38, 135, 0.37); /* Box shadow */
+}
+#title1{
+    position: relative;
+    top: 30px;
+   left: 90px;
+    text-transform: uppercase;
+    font-size: 25px;
+    Font-family:  "Zoho_Puvi_Bold"; 
+    letter-spacing: 4px;
+    font-weight: 500;
+    color:#7be29a;
+
+    background: #f6f6f9;
+    background: linear-gradient(to right,  #807b7b 100%, #454647 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slide-In {
+    animation: slide 3s ease-out;
+  }
+  
+  @keyframes slide {
+    from {
+      transform: translateY(70%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  .hidden1 {
+    display: none;
+  }
+  #sub-usecase{
+    position: relative;
+    top: 70px;
+    left: 672px;
+    width: clamp(100px, 50vw, 120px);
+    height: 2.3rem;
+    padding: 0 1.25rem;
+    border:1px groove ;
+    border-color:#d5dbd7;
+    color: white;
+    border-radius:25px;
+    margin: -0.625rem auto;
+    transition: all 250ms;
+    font-family: sans-serif;
+    background-color: #2ad84f;
+    letter-spacing: 1px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  }
+  #div-input{
+     font-size: small;
+     width: 220px;
+  }
