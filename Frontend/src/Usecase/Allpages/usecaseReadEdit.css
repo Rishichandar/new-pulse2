@@ -1,0 +1,16 @@
+#title2{
+    position: relative;
+    top: 30px;
+   left: 90px;
+    text-transform: uppercase;
+    font-size: 25px;
+    Font-family:  "Zoho_Puvi_Bold"; 
+    letter-spacing: 4px;
+    font-weight: 500;
+    color:#7be29a;
+
+    background: #f6f6f9;
+    background: linear-gradient(to right,  #807b7b 100%, #454647 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

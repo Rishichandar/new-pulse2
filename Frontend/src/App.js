@@ -28,6 +28,8 @@ import "./Usecase/Allpages/taskdetails.css";
 import { Home } from "./Usecase/Allpages/home.jsx";
 import Usecase from "./Usecase/Allpages/Usecase.js"
 import "./Usecase/Allpages/usecase.css"
+import { UsecaseReadEdit } from "./Usecase/Allpages/usecaseReadEdit.js";
+import "./Usecase/Allpages/usecaseReadEdit.css"
 
 function App() {
   return (
@@ -83,6 +85,16 @@ function App() {
           <Navbar/>
           <Sidebar1 />
           <Usecase/>
+        </>
+      }
+    />
+      <Route
+      path="/usecaseReadEdit"
+      element={
+        <>
+          <Navbar/>
+          <Sidebar1 />
+         <UsecaseReadEdit/>
         </>
       }
     />

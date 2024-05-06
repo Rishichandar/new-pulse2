@@ -190,9 +190,10 @@ const Admin = () => {
 		  {/* <input type="text" id="user-ID" placeholder="Project-name" value={projectTitle} name='ID' onChange={handleChange1}/> */}
 		 {/* <button id='taskbtn' onClick={toggleTabs}>Dailytask</button> */}
 		 {/* <span id= 'p'>Project Details</span> */}
-		<button onClick={downloadAllCSV1} id='down-al' style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}><BsCloudDownload  size={30}style={{
-      color: "#4a5c7a"
-    }}/></button>
+		<button onClick={downloadAllCSV1} id='down-al' style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}>Download csv</button>
+		{/* <BsCloudDownload  size={18}style={{
+      color: "#ffff" ,marginBottom:"-5px"
+    }}/> */}
 	        <input type="text" id="user-ID" placeholder="Title" value={projectTitle} name='ID' onChange={handleChange1}style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}/>
 	        <span  onClick={clearSearch} id='search-close'style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)',color:"grey" }}><IoClose size={20}/></span>
 			 {/* <button onClick={searchProject}>Search</button> */}
@@ -373,9 +374,7 @@ const Admin = () => {
 				</tbody>
 			</table>
           <span onClick={closeToggleBar}><IoClose /></span>
-		  <button onClick={downloadAllCSV2} id='down-al2' ><BsCloudDownload  size={30}style={{
-      color: "#4a5c7a"
-    }}/></button>
+		  <button onClick={downloadAllCSV2} id='down-al2' >Download csv</button>
         </div>
 		</div>
 		

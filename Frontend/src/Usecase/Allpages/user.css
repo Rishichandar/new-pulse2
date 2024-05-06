@@ -81,6 +81,7 @@
   
   
   
+  
   }
   
   /* #box{
@@ -115,7 +116,7 @@
     margin: -0.625rem auto;
     transition: all 250ms;
     font-family: sans-serif;
-    background-color:  #59a2df;
+    background-color:  #1ed64c;
     position: relative;
     letter-spacing: 1px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -289,7 +290,7 @@
   }
   #td{
       width: 120px;
-     
+      padding: 15px;
       text-align: center;
       /* padding: 5px; */
       height: 40px;
@@ -298,7 +299,7 @@
       color: rgb(97, 94, 94);
       font-size: 11px;
    
-      padding-left: 10px;
+      padding-left: 15px;
       color: rgb(95, 90, 90);
       background-color: #ffffff;
       font-weight:500;
@@ -394,4 +395,12 @@
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       
     
+    }
+    #mini1{
+      position: absolute;
+      top: 100px;
+      max-height: 100px;
+      overflow-x:auto;
+      
+      
     }

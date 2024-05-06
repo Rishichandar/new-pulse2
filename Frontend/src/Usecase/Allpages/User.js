@@ -6,10 +6,15 @@ import { IoArrowBack } from "react-icons/io5";
 import { MdEdit } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"
+import { BsCloudDownload } from "react-icons/bs";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdAddTask } from "react-icons/md";
 import { MdOutlineTask } from "react-icons/md";
+import { BiTask } from "react-icons/bi";
+import { IoClose } from "react-icons/io5";
+import { BsDownload } from "react-icons/bs";
+import { IoCloudDownloadOutline } from "react-icons/io5";
 function User(){
   //fetch user using email
 
@@ -17,7 +22,7 @@ function User(){
   const [userId, setUserId] = useState('');
   const navigate = useNavigate();
   const Email=useSelector((state)=>state.auth.user.Email)
-  console.log(Email);
+ 
   const[yourData,setYourData]=useState([])
   useEffect(() => {
     fetchData1();
@@ -111,22 +116,25 @@ function User(){
     };
     //for submit success
     const [success, setSuccess] = useState(false);
-    //save changess
+    console.log(editedData.Email)
+    //save changes
     const saveChanges = async () => {
       try {
-        await axios.put(`http://localhost:8000/api/update/${editedData.Email}`,editedData);
-        setEditMode(false);
-        setSuccess(true)
+        // Remove projectid from editedData
+        const { Projectid, ...dataToSend } = editedData;
     
-        console.log("success")
-        // Optionally, update the UI to reflect the changes
+        await axios.put(`http://localhost:8000/api/update/${dataToSend.Email}`, dataToSend);
+        setEditMode(false);
+        setSuccess(true);
+        toast.success("Updated successfully");
+        console.log("Success");
       } catch (error) {
         console.log('Error updating data:', error);
-        console.log(editedData)
+        console.log(editedData);
       }
-      
     };
-    console.log(email);
+    
+  
     
   //   function downloadCSV(data) {
   //     const csvContent = "data:text/csv;charset=utf-8," 
@@ -182,10 +190,64 @@ const tousecase = (title, teamMember) => {
   navigate("/usecase", { state: { title, teamMember} });
  
 };
+const tousecaseReadEdit = (title) => {
+ 
+  console.log("Team Member title:", title);
+  navigate("/usecaseReadEdit", { state: { title} });
+ 
+};
 const totask = () => {
   navigate("/task", { state: { email: Email } });
 };
- const notify1= () =>  toast.success("Get ready");;
+ //for task details
+ const [toggleBarOpen, setToggleBarOpen] = useState(false);
+	const closeToggleBar = () => {
+		// Close the toggle bar
+		setToggleBarOpen(false);
+		setShowTab1(true);
+	  };
+ const[taskData,setTaskData]=useState([])
+ const [error, setError] = useState(null);
+ const [showTab1, setShowTab1] = useState(true);
+//  const handleTaskButtonClick1 = async (email) => {
+//   console.log(email);
+//   try {
+//     const response = await fetch(`http://localhost:8000/task_details/${email}`);//http://localhost:8000/task_details
+//     if (!response.ok) {
+//     throw new Error('Failed to fetch task data');
+//     }
+//      console.log(response);
+//     const jsonData = await response.json();
+//     setTaskData(jsonData);
+//     setToggleBarOpen(true);
+   
+//     setShowTab1(!showTab1);
+   
+//     console.log("output",jsonData)
+//     setError(null);
+//   } catch (error) {
+//     alert('Error fetching task data: ', error);
+//   }
+//   };
+const handleTaskButtonClick = async (email) => {
+  console.log(email);
+  try {
+    const response = await fetch(`http://localhost:8000/task_details/${email}`);//http://localhost:8000/task_details
+    if (!response.ok) {
+    throw new Error('Failed to fetch task data');
+    }
+     console.log(response);
+    const jsonData = await response.json();
+    setTaskData(jsonData);
+    setToggleBarOpen(true);
+    setShowTab1(!showTab1);
+   
+    console.log(jsonData)
+    setError(null);
+  } catch (error) {
+    alert('Error fetching task data: ', error);
+  }
+  };
 
     return <>
     <div  className={`cont ${editMode ? 'blur-background' : ''}`}>
@@ -225,14 +287,14 @@ const totask = () => {
            <label id="tools">Tools</label>
           <input  id="edit-tools" type="text" name="Tools" value={editedData.Tools} onChange={handleChanges} />
           <br></br>
-          <button  id="sub2"  onClick={() => { saveChanges(); notify1(); }}>Save</button>{success && <span>submitted</span>}
+          <button  id="sub2"  onClick={() => { saveChanges(); setEditMode(false) }}>Save</button>{success && <span>submitted</span>}
           <span id="back-btn" onClick={() => setEditMode(false)}><IoArrowBack size={20} style={{color:" #4f4f52"}}/></span>
           <br></br>
           
           </form>
         </div>
       ) : (
-        <table id="table">
+        <table id="table" style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }} >
         <thead>
 					<tr>
 
@@ -243,7 +305,7 @@ const totask = () => {
 					<th id="th">Project_deadline</th>
 					<th id="th">Tools used</th>
 				
-          <th colSpan={3} id="th">Activity</th>
+          <th colSpan={5} id="th">Activity</th>
 
           {/* <th id="th"> Add Task</th> */}
 					</tr>
@@ -266,7 +328,10 @@ const totask = () => {
 							{/* <td id='tdd'>{obj.Files}</td> */}
               <td className="edit" id="td" onClick={() => handleEdit(obj)}><MdEdit  size={18} style={{color:" rgb(97, 94, 94)"}}/></td>
              <td id="td"> <span  onClick={totask}><MdOutlineTask size={20} /> </span></td>
-             <td id="td"><span onClick={() => tousecase(obj.Title,obj.Team)}style={{cursor:"pointer"}}>Usecase</span></td>
+             <td id="td"><span onClick={() => {handleTaskButtonClick(obj.Email) }}><BiTask  size={18} /></span></td>
+            
+             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecaseReadEdit(obj.Title)}>view usecase</span></td>
+             <td id="td"><span onClick={() => tousecase(obj.Title,obj.Team)}style={{cursor:"pointer"}}>Add Usecase</span></td>
 
 							
 						
@@ -287,6 +352,50 @@ const totask = () => {
       
                 
      </div>
+     <div className={`toggle-bar ${toggleBarOpen ? 'open' : ''}`} >
+        <div className="toggle-bar-content">
+		
+		<table id='mini1'>
+		
+				<thead>
+					<tr>
+					<th id='thhh'>Date and Time</th>
+					<th id='thhh'>Dailytask</th>
+				
+					{/* <th id='thh'>Deactivate/Activate</th> */}
+					
+					<th id='thhh'><IoCloudDownloadOutline size={26}/></th>
+					</tr>
+				</thead>
+				<tbody>
+				{/* {
+                  taskData.map((obj) => (
+                 <tr id='trrr' key={obj.ID}>
+                 <td id='tddd'>{obj.Date.substring(0, 10)}</td>
+                 <td id='tddd'>{obj.Dailytask}</td>
+               
+                <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td>
+    </tr>
+  ))
+} */}
+{Array.isArray(taskData) && taskData.map((obj) => (
+  <tr id='trrr' key={obj.ID}>
+    <td id='tddd'>{obj.Date.substring(0, 10)}</td>
+    <td id='tddd'>{obj.Dailytask}</td>
+    <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td>
+  </tr>
+))}
+	
+					
+					
+				</tbody>
+			</table>
+          <span onClick={closeToggleBar}><IoClose /></span>
+		  {/* <button onClick={downloadAllCSV2} id='down-al2' ><BsCloudDownload  size={30}style={{
+      color: "#4a5c7a"
+    }}/></button> */}
+        </div>
+		</div>
     
  
  

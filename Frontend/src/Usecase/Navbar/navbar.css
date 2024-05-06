@@ -23,7 +23,7 @@
     align-items: center;
     height: 55px;
     color: rgb(245, 245, 245);
-    background-color:#c7edce;
+    background: linear-gradient(90deg, rgb(160, 219, 214) 10%, rgb(148, 160, 216) 100%);
    
     
 }
@@ -37,7 +37,7 @@
    
 .Home,.Admin,.Signout,.user{
    
-    color: #312f2f;
+    color: #ffffff;
     text-decoration: none;
     padding: 10px 40px;
     margin-right: 13px;

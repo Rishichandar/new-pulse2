@@ -13,7 +13,7 @@ import Select from '@mui/material/Select';
 import { useSelector } from "react-redux";
 import TextField from '@mui/material/TextField';
 import { Height } from '@mui/icons-material';
-
+import { toast } from "react-toastify";
 
 const ITEM_HEIGHT = 35;
 const ITEM_PADDING_TOP = 8;
@@ -31,7 +31,9 @@ const names = [
   'Jana',
   'Nandhini',
   'Manoj',
-  'Somusundaram'
+  'Somusundaram',
+  "nj",
+  "abdullah"
 ];
 
 function getStyles(name, personName, theme) {
@@ -101,21 +103,36 @@ console.log(inputValue)
  // for submited
  const [submitted, setSubmitted] = useState(false);
 //for alert message if  user details submited
+console.log(submitted);
 const handleSubmit = (e) => {
   e.preventDefault();
- 
+  setSubmitted(true);
   // Check if required fields are filled
   if (inputValue.Title.trim() === '' || inputValue.Description.trim() === '' || inputValue.Team.trim() === ''|| inputValue.Tools.trim() === '') {
-    alert("User didn't fill the required fields");
+    toast.error("fill the required fields");
     return;
   }
   // Proceed with form submission logic
   // For example, you can send the form data to the backend here
   console.log('Form submitted with data:', inputValue);
+  setSubmitted(true);
   axios.post('http://localhost:8000/project_infos', inputValue)//inside we write api to post the data in mysql
   .then(res=> console.log(res))
   .catch(err=> console.log(err));
-  setSubmitted(true);
+
+  toast.success("submitted successfully")
+    // Clear input fields after submission
+    setInputValue({
+      Title: '',
+      Email: email, // Assuming you want to keep the email field as is
+      Description: '',
+      Team: '',
+      Startdate: '',
+      Deadline: '',
+      Tools: '',
+      Files: '',
+    });
+  
 };
     //image transition
     const [formImagePosition, setFormImagePosition] = useState('hidden1');
@@ -130,13 +147,25 @@ useEffect(() => {
   }, []);
  
   const handleClick = () => {
-    // Navigate to the signup page
-    setTimeout(() => {
-      // Navigate to the task page after 3 seconds
-      // navigate('/task');
-    }, 2000); // 3000 milliseconds = 3 seconds
-   
-  };
+    // Check if submitted is true
+    if (submitted) {
+        // Navigate to the task page after 3 seconds
+        setTimeout(() => {
+            navigate('/user');
+        }, 2000); // 3000 milliseconds = 3 seconds
+    } 
+};
+const [isFocused, setIsFocused] = useState(false);
+
+const handleFocus = () => {
+  setIsFocused(true);
+};
+
+const handleBlur = () => {
+  setIsFocused(false);
+};
+
+
   return (
    
   
@@ -150,37 +179,38 @@ useEffect(() => {
      
      
     </div> 
-    <div>
+   
     {/* <span id='first-name'>Navigate the complexities of modern project management</span> */}
     {/* <span id='name'>Plan your first project in minutes.</span> */}
-    </div>
+   
    
     
     <div id="right-container">
-    
+   
       <form onSubmit={handleSubmit} id='form1'> 
         
          <div id='form'>
+         <span id='reqfield'><span style={{fontSize:"17px",color:"red"}}>*</span> Indicates required</span>
          
              <tr>
-            <TextField
-              
+             <TextField
               type="title"
               variant="outlined"
-              label="Title"
-              autoFocus
               name="Title"
-              id='title'
-              sx={{ width: "300px", mb: 5 ,position: 'relative',bottom:2}}
-              InputLabelProps={{ style: { fontSize: '14px' } }}
-              onChange={handleChange}
-            />
+               id='title'
+               sx={{ width: "300px", mb: 5, position: 'relative', top: 9 }}
+               InputLabelProps={{ style: { fontSize: '15px' } }}
+               onChange={handleChange}
+               onFocus={handleFocus}
+               onBlur={handleBlur}
+               label={isFocused ? "Title *" : "Title"}
+               autoFocus
+              />
             </tr>
             <tr>
             <TextField
               type="email"
               variant="outlined"
-              label="Email"
               autoFocus
               name="Email"
               value={inputValue.Email}
@@ -188,8 +218,9 @@ useEffect(() => {
               onChange={handleChange}
               disabled  // Add disabled attribute here to make it non-editable
               id='email'
-              style={{position: 'relative',bottom:30 ,fontSize:'10'}}
-              InputLabelProps={{ style: { fontSize: '13px' } }}
+              style={{position: 'relative',bottom:20 ,fontSize:'12'}}
+              InputLabelProps={{ style: { fontSize: '15px' } }}
+               label="Email"
               />
           
             </tr>
@@ -199,62 +230,70 @@ useEffect(() => {
               
               type="Description"
               variant="outlined"
-              label="Description"
               autoFocus
               name="Description"
-              sx={{ width: "300px", mb: 5 ,position: 'relative',top:-25}}
+              sx={{ width: "300px", mb: 5 ,position: 'relative',top:-15}}
               onChange={handleChange}
               id='description'
-              InputLabelProps={{ style: { fontSize: '13px' } }}
-           />
-            <FormControl sx={{ m: 1, width: 300, position: 'relative', bottom: 59, right:8 }}>
-             <InputLabel id="demo-multiple-name-label" style={{ fontSize: '14px' }} >Team</InputLabel>
-             
-             <Select
-             name='Team'
-             labelId="demo-multiple-name-label"
-            style={{height:"53px"}}
-             
-              multiple
-              value={personName}
-              onChange={handleChange1}
-              input={<OutlinedInput label="Name" style={{ fontSize: '10px' }} />}
-               MenuProps={MenuProps}
-               
-               >
-              {names.map((name) => (
-               <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            
-                 >
-               {name}
-             </MenuItem>
-              ))}
+              InputLabelProps={{ style: { fontSize: '15px' } }}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              label={isFocused ? "Description *" : "Description"}
               
-            </Select>
-            </FormControl>
+           />
+            <FormControl sx={{ m: 1, width: 300, position: 'relative', bottom: 49, right: 8 }}>
+      <InputLabel 
+        id="demo-multiple-name-label" 
+        style={{ fontSize: '15px' }}
+      >
+        Team{isFocused && '*'}
+      </InputLabel>
+             
+      <Select
+        name='Team'
+        labelId="demo-multiple-name-label"
+        style={{ height: "53px" }}
+        multiple
+        value={personName}
+        onChange={handleChange1}
+        input={<OutlinedInput label="Name" style={{ fontSize: '10px' }} />}
+        MenuProps={MenuProps}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      >
+        {names.map((name) => (
+          <MenuItem
+            key={name}
+            value={name}
+            style={getStyles(name, personName, theme)}
+          >
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
           
             </tr>
            <tr>
-            <input type='date' id='startdate' name='Startdate' onChange={handleChange} style={{width:"300px",textAlign:"center",height:"50px",color:"grey",position: 'relative', bottom:"55px"}}/>
+            <input type='date' id='startdate' name='Startdate' onChange={handleChange} style={{width:"300px",textAlign:"center",height:"50px",color:"grey",position: 'relative', bottom:"42px"}}/>
             </tr>
             <tr>
-            <input type='date' id='enddate' name='Deadline' onChange={handleChange}  style={{width:"300px",textAlign:"center",height:"50px",color:"grey",position: 'relative', bottom:"43px"}}/>
+            <input type='date' id='enddate' name='Deadline' onChange={handleChange}  style={{width:"300px",textAlign:"center",height:"50px",color:"grey",position: 'relative', bottom:"25px"}}/>
             </tr>
             <tr>
             <TextField
               type="Tools"
               variant="outlined"
-              label="Teck stack"
               autoFocus
               name="Tools"
               sx={{ width: "300px", mb: 1 }}
               onChange={handleChange}
               id='tool'
-              style={{marginTop:'15px',position: 'relative',bottom:45}}
-              InputLabelProps={{ style: { fontSize: '13px' } }}/>
+              style={{marginTop:'15px',position: 'relative',bottom:25}}
+              InputLabelProps={{ style: { fontSize: '15px' } }}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              label={isFocused ? "Teck stack *" : "Teck stack"}/>
               
             <input type='file' id='file1'  name='Files' onChange={handleChange} style={{position: 'relative', right:0,bottom:40}}
             />
@@ -317,7 +356,7 @@ useEffect(() => {
         <button type='submit' id='sub'  onClick={handleClick}>Submit</button> */}
         </div>
       </form>
-      {submitted && <span id='success'>submitted successfully!</span>}
+      {/* {submitted && <span id='success'>submitted successfully!</span>} */}
      
   
     </div>

@@ -302,28 +302,48 @@ app.get("/project_infouser", (req, res) => {
 //     }
 //   });
 // });
-app.get("/task_details/:Email", (req, res) => {
-  let personID = req.params.Email;
-  let query=`SELECT * FROM taskdetails WHERE Email = ?`;//`SELECT * FROM project_info WHERE Projectid =${personID}`
+// app.get("/task_details/:Email", (req, res) => {
+//   let personID = req.params.Email;
+//   let query=`SELECT * FROM taskdetails WHERE Email = ?`;//`SELECT * FROM project_info WHERE Projectid =${personID}`
  
-  db.query(query,personID, (err, results) => {
-      if (err) {
-        console.error('Error querying MySQL database:', err);
-        res.json({ error: 'Internal app error' });
-        return;
-      }
-      // Check if person exists
-if (results.length === 0) {
-  res.json({ results });
-  return; 
-}
+//   db.query(query,personID, (err, results) => {
+//       if (err) {
+//         console.error('Error querying MySQL database:', err);
+//         res.json({ error: 'Internal app error' });
+//         return;
+//       }
+//       // Check if person exists
+// if (results.length === 0) {
+//   res.json({ results });
+//   return; 
+// }
 
-// Person found, send person data in response
-res.json(results);
+// // Person found, send person data in response
+// res.json(results);
+// });
+
+// });
+app.get("/task_details/:Email", (req, res) => {
+  let personEmail = req.params.Email; // Corrected variable name
+  let query = `SELECT * FROM taskdetails WHERE Email = ?`;
+
+  db.query(query, [personEmail], (err, results) => { // Passing an array for the parameters
+    if (err) {
+      console.error('Error querying MySQL database:', err);
+      res.json({ error: 'Internal app error' });
+      return;
+    }
+    
+    // Check if task details were found for the email
+    if (results.length === 0) {
+      res.json({ error: 'No task details found for the email provided' });
+      return;
+    }
+
+    // Task details found, send them in the response
+    res.json(results);
+  });
 });
-
-});
-
 //for getting single value based on id
 app.get("/project_info/:Projectid", (req, res) => {
     let personID = req.params.Projectid;
@@ -370,20 +390,57 @@ app.get("/project_info1/:Title", (req, res) => {
 });
 
 
+// 
+// app.put('/api/update/:Email', (req, res) => {
+//   const projectemail = req.params.Email;
+//   let editedData = req.body;
+  
+//   // Removing projectid from editedData if it exists
+//   if (editedData.hasOwnProperty('projectid')) {
+//     delete editedData.projectid;
+//   }
+
+//   // Changing date format correctly
+//   if (editedData.Startdate) {
+//     const startdate = new Date(editedData.Startdate);
+//     editedData.Startdate = startdate.toISOString().split('T')[0]; //format yyyy-mm-dd
+//   }
+//   if (editedData.Deadline) {
+//     const deadline = new Date(editedData.Deadline);
+//     editedData.Deadline = deadline.toISOString().split('T')[0]; //format yyyy-mm-dd
+//   }
+  
+//   // Update the corresponding row in the database
+//   db.query('UPDATE project_info SET ? WHERE Email = ?', [editedData, projectemail], (error, results) => {
+//     if (error) {
+//       console.error('Error updating data:', error);
+//       res.status(500).send('Error updating data in the database');
+//       return;
+//     }
+//     res.status(200).send('Data updated successfully');
+//   });
+// });
 app.put('/api/update/:Email', (req, res) => {
-  const projectId = req.params.Email;
-  const editedData = req.body;
-  // Changing date format correct
-  if(editedData.Startdate){
-    const startdate=new Date(editedData.Startdate);
-    editedData.Startdate=startdate.toISOString().split('T')[0];//format yyyy-mm-dd
+  const projectemail = req.params.Email;
+  let editedData = req.body;
+  
+  // Removing projectid from editedData if it exists
+  if (editedData.hasOwnProperty('projectid')) {
+    delete editedData.projectid;
   }
-  if(editedData.Deadline){
-    const deadline=new Date(editedData.Deadline);
-    editedData.Deadline=deadline.toISOString().split('T')[0];//format yyyy-mm-dd
+
+  // Changing date format correctly
+  if (editedData.Startdate) {
+    const startdate = new Date(editedData.Startdate);
+    editedData.Startdate = startdate.toISOString().split('T')[0]; //format yyyy-mm-dd
   }
+  if (editedData.Deadline) {
+    const deadline = new Date(editedData.Deadline);
+    editedData.Deadline = deadline.toISOString().split('T')[0]; //format yyyy-mm-dd
+  }
+  
   // Update the corresponding row in the database
-  db.query('UPDATE project_info SET ? WHERE Email = ?', [editedData, projectId], (error, results) => {
+  db.query('UPDATE project_info SET ? WHERE Email = ?', [editedData, projectemail], (error, results) => {
     if (error) {
       console.error('Error updating data:', error);
       res.status(500).send('Error updating data in the database');
@@ -394,17 +451,80 @@ app.put('/api/update/:Email', (req, res) => {
 });
 //for posting usecase details
 app.post('/usecases', (req, res) => {
-  const { title, teamMembers, usecases } = req.body;
+  const { title, teamMember, usecase } = req.body;
   
   // Insert data into the database
-  const sql = `INSERT INTO usecase (title, team_members, usecases) VALUES (?, ?, ?)`;
-  db.query(sql, [title, JSON.stringify(teamMembers), JSON.stringify(usecases)], (err, result) => {
+  const sql = `INSERT INTO usecase (title, team_members, usecases) VALUES (?, ?, ?)`; // Assuming the column names in your database are 'team_member' and 'use_case'
+  db.query(sql, [title, teamMember, usecase], (err, result) => { // No need to stringify the teamMember and usecase
     if (err) {
-      console.error('Error inserting data into database:', err);
+      console.log('Error inserting data into database:', err);
       res.status(500).json({ error: 'Failed to insert data into database' });
     } else {
-      console.log('Data inserted successfully');
-      res.status(200).json({ message: 'Data inserted successfully' });
+      console.log(result);
+      res.status(200).json({ message: 'Data inserted successfully' ,result});
     }
   });
 });
+
+// app.post('/usecases', (req, res) => {
+//   const { title, teamMember, usecase } = req.body;
+  
+//   // Insert data into the database
+//   const sql = `INSERT INTO usecase (title, team_members, usecases) VALUES (?, ?, ?)`;
+//   db.query(sql, [title, JSON.stringify(teamMember), JSON.stringify(usecase)], (err, result) => {
+//     if (err) {
+//       console.log('Error inserting data into database:', err);
+//       res.status(500).json({ error: 'Failed to insert data into database' });
+//     } else {
+//       console.log(result)
+//       res.status(200).json({ message: 'Data inserted successfully' });
+//     }
+//   });
+// });
+// Route to handle POST requests for use cases
+// app.post('/usecases', (req, res) => {
+//   const { title, usecase, teamMember } = req.body;
+
+//   // Insert the data into MySQL
+//   const sql = 'INSERT INTO usecase (title,usecases,team_members) VALUES (?, ?, ?)';
+//   db.query(sql, [title, usecase,teamMember], (err, result) => {
+//     if (err) {
+//       console.error('Error inserting data into MySQL:', err);
+//       res.status(500).json({ error: 'Failed to insert data into MySQL' });
+//     } else {
+//       console.log('Data inserted into MySQL successfully');s
+//       res.status(200).json({ message: 'Data inserted into MySQL successfully' });
+//     }
+//   });
+// });
+///USECASEES
+// for Read USECASE
+app.get('/usecases/:title', (req, res) => {
+  const title = req.params.title;
+  const sql = `SELECT * FROM usecase WHERE title = ?`;
+  db.query(sql, [title], (err, results) => {
+      if (err) {
+          console.error('Error fetching usecases:', err);
+          res.status(500).json({ error: 'Failed to fetch usecases' });
+      } else {
+          res.status(200).json(results);
+      }
+  });
+});
+
+//for update
+// app.put('/usecases/:id', (req, res) => {
+//   const id = req.params.id;
+//   const { title, teamMembers, usecases } = req.body;
+  
+//   const sql = `UPDATE usecases SET title = ?, team_members = ?, usecases = ? WHERE id = ?`;
+//   db.query(sql, [title, JSON.stringify(teamMembers), JSON.stringify(usecases), id], (err, result) => {
+//     if (err) {
+//       console.error('Error updating usecase:', err);
+//       res.status(500).json({ error: 'Failed to update usecase' });
+//     } else {
+//       console.log('Usecase updated successfully');
+//       res.status(200).json({ message: 'Usecase updated successfully' });
+//     }
+//   });
+// });

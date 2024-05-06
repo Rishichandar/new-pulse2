@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 function Signup(){
+  const navigate = useNavigate();
   const Email=useSelector((state)=>state.auth.user.Email)
   const location = useLocation();
   const email = location.state?.email; // Access email from location state
 
     function callalert(){
-        alert ("Task added successfully")
+      toast.success("Task added successfully")
     }
     // for date getting
     const [taskDetails, setTaskDetails] = useState('');
@@ -32,13 +35,22 @@ function Signup(){
             emailid,
           });
           console.log(response.data);
-          alert("Task added successfully");
+          toast.success("Task added successfully")
           taskDetailsInput.value = '';
         } catch (error) {
           console.error('Error:', error);
         }
       };
     //   console.log(taskDetails);
+    const handleClick = () => {
+      // Check if submitted is true
+    
+          // Navigate to the task page after 3 seconds
+        setTimeout(() => {
+              navigate('/user');
+          }, 2000); // 3000 milliseconds = 3 seconds
+    
+  };
     return <>
     <div id="task-container">
         <div id="tot-form">
@@ -63,7 +75,7 @@ function Signup(){
           <input id="task-details" className="field" type="text" placeholder="Enter task details" onChange={handleInputChange} required/>
           <br></br>
           <br></br>
-          <input className="btn-sub" type="submit" />
+          <input className="btn-sub"onClick={handleClick} type="submit" />
           </div>
           </div>
          </form>
