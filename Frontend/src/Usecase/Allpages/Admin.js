@@ -8,7 +8,7 @@ import {  Zoom }  from 'react-toastify';
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { BsCloudDownload } from "react-icons/bs";
 import { RiTaskFill } from "react-icons/ri";
-import { CiSearch } from "react-icons/ci";
+import { IoSearchOutline } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 const Admin = () => {
@@ -124,10 +124,10 @@ const Admin = () => {
 	//   };
 	  const [error, setError] = useState(null);
 	  const[taskData,setTaskData]=useState([])
-	  const handleTaskButtonClick = async (email) => {
-		console.log(email);
+	  const handleTaskButtonClick = async (title) => {
+		console.log(title);
 		try {
-		  const response = await fetch(`http://localhost:8000/task_details/${email}`);//http://localhost:8000/task_details
+		  const response = await fetch(`http://localhost:8000/task_details/${title}`);//http://localhost:8000/task_details
 		  if (!response.ok) {
 			throw new Error('Failed to fetch task data');
 		  }
@@ -195,7 +195,7 @@ const Admin = () => {
       color: "#ffff" ,marginBottom:"-5px"
     }}/> */}
 	        <input type="text" id="user-ID" placeholder="Title" value={projectTitle} name='ID' onChange={handleChange1}style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}/>
-	        <span  onClick={clearSearch} id='search-close'style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)',color:"grey" }}><IoClose size={20}/></span>
+	        <span  onClick={clearSearch} id='search-close'style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)',color:"grey" }}><IoClose size={20}/></span ><span id='search-icon'style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}><IoSearchOutline size={16}/></span>
 			 {/* <button onClick={searchProject}>Search</button> */}
 			{/* <div id='mini-tab'>
 			  {projectData && (
@@ -253,7 +253,7 @@ const Admin = () => {
 					</td>
 				  )}
 				  <td><button onClick={() => downloadCSV([obj])} id='down-btn1'><BsDownload size={20} style={{ color: "#2f9b2f" }}/></button></td>
-				  <td><span onClick={() => {handleTaskButtonClick(obj.Email) }}><RiTaskFill  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
+				  <td className='task1'><span onClick={() => {handleTaskButtonClick(obj.Title) }}><RiTaskFill  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
 				</tr>
 			  ))
 			}
@@ -294,7 +294,7 @@ const Admin = () => {
 				)}
 			  </td>
 			  <td><button onClick={() => downloadCSV([projectData])} id='down-btn1'><BsDownload size={20} style={{ color: "#2f9b2f" }} /></button></td>
-			  <td><span onClick={() => {handleTaskButtonClick(projectData.Email) }}style={{marginLeft:"20px"}}><RiTaskFill  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
+			  <td><span onClick={() => {handleTaskButtonClick(projectData.Title) }}style={{marginLeft:"20px"}}><RiTaskFill  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
 			</tr>
 		  </tbody>
 		</table>
@@ -307,40 +307,7 @@ const Admin = () => {
 	
 		   
 		    
-		{/* taskDetails table */}
-		{/* <div id="tab"  style={{ display: showTab1 ? 'none' : 'block' }}>
 		
-			
-			<table>
-				<thead>
-					<tr>
-					<th id='thhh'>Date and Time</th>
-					<th id='thhh'>Dailytask</th>
-				
-					
-					
-					<th id='thhh'><IoCloudDownloadOutline size={26}/></th>
-					</tr>
-				</thead>
-				<tbody>
-				{
-                  taskData.map((obj) => (
-                 <tr id='trrr' key={obj.ID}>
-                 <td id='tddd'>{obj.Date.substring(0, 10)}</td>
-                 <td id='tddd'>{obj.Dailytask}</td>
-               
-                <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={25} style={{ color: "#2f9b2f" }}/></span></td>
-    </tr>
-  ))
-}
-					
-					
-				</tbody>
-			</table>
-			
-			
-		
-		</div> */}
 		{/* Render the toggle bar */}
 		<div className={`toggle-bar ${toggleBarOpen ? 'open' : ''}`} >
         <div className="toggle-bar-content">
@@ -358,7 +325,7 @@ const Admin = () => {
 					</tr>
 				</thead>
 				<tbody>
-				{
+				{/* {
                   taskData.map((obj) => (
                  <tr id='trrr' key={obj.ID}>
                  <td id='tddd'>{obj.Date.substring(0, 10)}</td>
@@ -367,7 +334,16 @@ const Admin = () => {
                 <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td>
     </tr>
   ))
-}
+} */}
+               {
+                 Array.isArray(taskData) && taskData.map((obj) => (
+                <tr id='trrr' key={obj.ID}>
+                 <td id='tddd'>{obj.Date.substring(0, 10)}</td>
+                 <td id='tddd'>{obj.Dailytask}</td>
+                 <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td>
+                 </tr>
+                   ))
+                    }
 	
 					
 					
@@ -384,3 +360,4 @@ const Admin = () => {
 
 export default Admin;
 
+// Inside your searchProject function, after setting the project data, fetch the task data

@@ -7,7 +7,12 @@ import { useNavigate } from 'react-router-dom';
 function Signup(){
   const navigate = useNavigate();
   const Email=useSelector((state)=>state.auth.user.Email)
+ 
+  
   const location = useLocation();
+  const { state } = location;
+  const { title } = state;
+  console.log(title)
   const email = location.state?.email; // Access email from location state
 
     function callalert(){
@@ -16,6 +21,7 @@ function Signup(){
     // for date getting
     const [taskDetails, setTaskDetails] = useState('');
     const [emailid, setEmail] = useState(Email); //  forAdd email state
+    const [Title, settitle] = useState(title); //  forAdd email state
     //for storing a change values in taskdetails
     console.log(Email);
     // const handleInputChange = (e) => {
@@ -33,6 +39,7 @@ function Signup(){
           const response = await axios.post('http://localhost:8000/taskdetails', {
             taskDetails,
             emailid,
+            Title,
           });
           console.log(response.data);
           toast.success("Task added successfully")

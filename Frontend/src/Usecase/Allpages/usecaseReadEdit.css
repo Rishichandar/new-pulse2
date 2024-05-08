@@ -1,10 +1,9 @@
 #title2{
     position: relative;
     top: 30px;
-   left: 90px;
-    text-transform: uppercase;
+   left: 145px;
     font-size: 25px;
-    Font-family:  "Zoho_Puvi_Bold"; 
+    font-family: Georgia, 'Times New Roman', Times, serif; Font-family:  "Zoho_Puvi_Bold"; 
     letter-spacing: 4px;
     font-weight: 500;
     color:#7be29a;
@@ -13,4 +12,14 @@
     background: linear-gradient(to right,  #807b7b 100%, #454647 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+#usecase-edit{
+    position: relative;
+    left: 110px;
+    top: 140px;
+}
+#usecase-submit{
+    position: relative;
+    left:300px;
+    top: 100px;
 }

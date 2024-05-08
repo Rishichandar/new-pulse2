@@ -118,6 +118,7 @@ function User(){
     const [success, setSuccess] = useState(false);
     console.log(editedData.Email)
     //save changes
+   
     const saveChanges = async () => {
       try {
         // Remove projectid from editedData
@@ -127,6 +128,11 @@ function User(){
         setEditMode(false);
         setSuccess(true);
         toast.success("Updated successfully");
+    
+        // Update the background data with editedData
+        const updatedYourData = yourData.map(item => item.Projectid === editedData.Projectid ? editedData : item);
+        setYourData(updatedYourData);
+    
         console.log("Success");
       } catch (error) {
         console.log('Error updating data:', error);
@@ -196,8 +202,8 @@ const tousecaseReadEdit = (title) => {
   navigate("/usecaseReadEdit", { state: { title} });
  
 };
-const totask = () => {
-  navigate("/task", { state: { email: Email } });
+const totask = (title) => {
+  navigate("/task", { state: { email: Email, title: title } });
 };
  //for task details
  const [toggleBarOpen, setToggleBarOpen] = useState(false);
@@ -229,10 +235,10 @@ const totask = () => {
 //     alert('Error fetching task data: ', error);
 //   }
 //   };
-const handleTaskButtonClick = async (email) => {
-  console.log(email);
+const handleTaskButtonClick = async (title) => {
+  console.log(title);
   try {
-    const response = await fetch(`http://localhost:8000/task_details/${email}`);//http://localhost:8000/task_details
+    const response = await fetch(`http://localhost:8000/task_details/${title}`);//http://localhost:8000/task_details
     if (!response.ok) {
     throw new Error('Failed to fetch task data');
     }
@@ -250,6 +256,10 @@ const handleTaskButtonClick = async (email) => {
   };
 
     return <>
+    {/* <div id="your-info">
+      <span>Hi</span>
+
+    </div> */}
     <div  className={`cont ${editMode ? 'blur-background' : ''}`}>
         <div>
           {/* <span id="emp-det">Your Details</span> */}
@@ -287,7 +297,7 @@ const handleTaskButtonClick = async (email) => {
            <label id="tools">Tools</label>
           <input  id="edit-tools" type="text" name="Tools" value={editedData.Tools} onChange={handleChanges} />
           <br></br>
-          <button  id="sub2"  onClick={() => { saveChanges(); setEditMode(false) }}>Save</button>{success && <span>submitted</span>}
+          <button  id="sub2"  onClick={() => { saveChanges(); setEditMode(false) }}>Save</button>
           <span id="back-btn" onClick={() => setEditMode(false)}><IoArrowBack size={20} style={{color:" #4f4f52"}}/></span>
           <br></br>
           
@@ -301,8 +311,8 @@ const handleTaskButtonClick = async (email) => {
 					<th id="th">Project Title</th>
           <th id="th">Description</th>
 					<th id="th">Team members</th>
-					<th id="th">Project_startdate</th>
-					<th id="th">Project_deadline</th>
+					<th id="th">startdate</th>
+					<th id="th">deadline</th>
 					<th id="th">Tools used</th>
 				
           <th colSpan={5} id="th">Activity</th>
@@ -327,11 +337,15 @@ const handleTaskButtonClick = async (email) => {
 							<td id='td'>{obj.Tools}</td>
 							{/* <td id='tdd'>{obj.Files}</td> */}
               <td className="edit" id="td" onClick={() => handleEdit(obj)}><MdEdit  size={18} style={{color:" rgb(97, 94, 94)"}}/></td>
-             <td id="td"> <span  onClick={totask}><MdOutlineTask size={20} /> </span></td>
-             <td id="td"><span onClick={() => {handleTaskButtonClick(obj.Email) }}><BiTask  size={18} /></span></td>
-            
-             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecaseReadEdit(obj.Title)}>view usecase</span></td>
+              <td id="td" className="taskadd">
+              <span onClick={() => totask(obj.Title)}>
+              <MdOutlineTask size={20} />
+              </span>
+              </td>
+             <td id="td"  className="task"><span onClick={() => {handleTaskButtonClick(obj.Title) }}><BiTask  size={18} /></span></td>
              <td id="td"><span onClick={() => tousecase(obj.Title,obj.Team)}style={{cursor:"pointer"}}>Add Usecase</span></td>
+             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecaseReadEdit(obj.Title)}>view usecase</span></td>
+             
 
 							
 						

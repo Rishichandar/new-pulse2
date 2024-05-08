@@ -121,6 +121,9 @@ const handleSubmit = (e) => {
   .catch(err=> console.log(err));
 
   toast.success("submitted successfully")
+  setTimeout(() => {
+    navigate("/user");
+  }, 2000);
     // Clear input fields after submission
     setInputValue({
       Title: '',
@@ -146,15 +149,15 @@ useEffect(() => {
     return () => clearTimeout(timeoutNo);
   }, []);
  
-  const handleClick = () => {
-    // Check if submitted is true
-    if (submitted) {
-        // Navigate to the task page after 3 seconds
-        setTimeout(() => {
-            navigate('/user');
-        }, 2000); // 3000 milliseconds = 3 seconds
-    } 
-};
+//   const handleClick = () => {
+//     // Check if submitted is true
+//     if (submitted) {
+//         // Navigate to the task page after 3 seconds
+//         setTimeout(() => {
+//             navigate('/user');
+//         }, 2000); // 3000 milliseconds = 3 seconds
+//     } 
+// };
 const [isFocused, setIsFocused] = useState(false);
 
 const handleFocus = () => {
@@ -194,18 +197,19 @@ const handleBlur = () => {
          
              <tr>
              <TextField
-              type="title"
-              variant="outlined"
-              name="Title"
-               id='title'
-               sx={{ width: "300px", mb: 5, position: 'relative', top: 9 }}
-               InputLabelProps={{ style: { fontSize: '15px' } }}
-               onChange={handleChange}
-               onFocus={handleFocus}
-               onBlur={handleBlur}
-               label={isFocused ? "Title *" : "Title"}
-               autoFocus
-              />
+    type="title"
+    variant="outlined"
+    name="Title"
+    id="title"
+    sx={{ width: "300px", mb: 5, position: 'relative', top: 9 }}
+    InputLabelProps={{ style: { fontSize: '13px', fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif" } }}
+    onChange={handleChange}
+    onFocus={handleFocus}
+    onBlur={handleBlur}
+    label={isFocused ? "Title *" : "Title"}
+    autoFocus
+/>
+
             </tr>
             <tr>
             <TextField
@@ -219,7 +223,7 @@ const handleBlur = () => {
               disabled  // Add disabled attribute here to make it non-editable
               id='email'
               style={{position: 'relative',bottom:20 ,fontSize:'12'}}
-              InputLabelProps={{ style: { fontSize: '15px' } }}
+              InputLabelProps={{ style: { fontSize: '15px', fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"  } }}
                label="Email"
               />
           
@@ -235,7 +239,7 @@ const handleBlur = () => {
               sx={{ width: "300px", mb: 5 ,position: 'relative',top:-15}}
               onChange={handleChange}
               id='description'
-              InputLabelProps={{ style: { fontSize: '15px' } }}
+              InputLabelProps={{ style: { fontSize: '13px', fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"  } }}
               onFocus={handleFocus}
               onBlur={handleBlur}
               label={isFocused ? "Description *" : "Description"}
@@ -244,7 +248,7 @@ const handleBlur = () => {
             <FormControl sx={{ m: 1, width: 300, position: 'relative', bottom: 49, right: 8 }}>
       <InputLabel 
         id="demo-multiple-name-label" 
-        style={{ fontSize: '15px' }}
+        style={{ fontSize: '14px' }}
       >
         Team{isFocused && '*'}
       </InputLabel>
@@ -256,7 +260,7 @@ const handleBlur = () => {
         multiple
         value={personName}
         onChange={handleChange1}
-        input={<OutlinedInput label="Name" style={{ fontSize: '10px' }} />}
+        input={<OutlinedInput label="Name" style={{ fontSize: '10px', fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"  }} />}
         MenuProps={MenuProps}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -290,7 +294,7 @@ const handleBlur = () => {
               onChange={handleChange}
               id='tool'
               style={{marginTop:'15px',position: 'relative',bottom:25}}
-              InputLabelProps={{ style: { fontSize: '15px' } }}
+              InputLabelProps={{ style: { fontSize: '13px', fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"  } }}
               onFocus={handleFocus}
               onBlur={handleBlur}
               label={isFocused ? "Teck stack *" : "Teck stack"}/>
@@ -301,7 +305,7 @@ const handleBlur = () => {
            
          
             <tr>
-            <button type='submit' id='sub'  onClick={handleClick}>Submit</button>
+            <button type='submit' id='sub' >Submit</button>
             </tr>
           
         
