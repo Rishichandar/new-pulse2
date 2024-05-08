@@ -530,17 +530,35 @@ app.get('/usecases/:title', (req, res) => {
 //   });
 // });
 //put method
-app.put('/usecases/:title', (req, res) => {
-  const { title } = req.params;
-  const { usecases } = req.body;
+// app.put('/usecases/:title', (req, res) => {
+//   const { title } = req.params;
+//   const { usecases } = req.body;
  
-  const projectTeamMembers = teamMembers.filter(member => member.project_title === title);
-  if (projectTeamMembers.length > 0) {
-      projectTeamMembers.forEach(member => {
-          member.usecases = usecases;
-      });
-      res.status(200).send('Use cases updated successfully.');  
-  } else {
-      res.status(404).send('Project not found.');
-  }
+//   const projectTeamMembers = teamMembers.filter(member => member.project_title === title);
+//   if (projectTeamMembers.length > 0) {
+//       projectTeamMembers.forEach(member => {
+//           member.usecases = usecases;
+//       });
+//       res.status(200).send('Use cases updated successfully.');  
+//   } else {
+//       res.status(404).send('Project not found.');
+//   }
+// });
+
+app.put('/usecases/:title', (req, res) => {
+  const title = req.params.title;
+  const { team_members, usecases } = req.body;
+
+  const sql = `UPDATE usecase SET title = ?, usecases = ? WHERE  team_members = ?`;
+  const values = [ title,  usecases , team_members];
+
+  db.query(sql, values, (err, result) => {
+      if (err) {
+          console.error('Error updating use cases:', err);
+          res.status(500).json({ error: 'Failed to update use cases. Please try again later.' });
+          return;
+      }
+      console.log('Use cases updated successfully');
+      res.json({ success: true });
+  });
 });

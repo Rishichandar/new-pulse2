@@ -1,25 +1,141 @@
-#title2{
+#titlee2{
     position: relative;
     top: 30px;
    left: 145px;
     font-size: 25px;
     font-family: Georgia, 'Times New Roman', Times, serif; Font-family:  "Zoho_Puvi_Bold"; 
     letter-spacing: 4px;
+   
     font-weight: 500;
-    color:#7be29a;
+    color:#4072a7 ;
 
-    background: #f6f6f9;
-    background: linear-gradient(to right,  #807b7b 100%, #454647 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    
 }
 #usecase-edit{
     position: relative;
-    left: 110px;
-    top: 140px;
+    left: 217px;
+    top: 146px;
+    height: 1.8rem;
+    border:1px groove ;
+    border-color:transparent;
+    color: rgb(46, 45, 45);
+    border-radius: 5px;
+    margin: -0.625rem auto;
+    position: relative;
+    transition: all 250ms;
+    font-family: sans-serif;
+    color: rgb(46, 45, 45);
+   
 }
+#usecase-edit {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  #usecase-edit:hover::after {
+    content: "Edit";
+    position: absolute;
+    top: 155%;
+    left: 55%;
+    transform: translateX(-50%);
+    background-color: rgba(43, 91, 223, 0.7);
+    color: rgb(255, 255, 255);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    transition: all 0.4ms ease; /* Adds a smooth transition effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 999; /* Ensures the edit text appears above other elements */
+  }
+ 
 #usecase-submit{
     position: relative;
     left:300px;
     top: 100px;
+}
+
+#edit-submit{
+    position: relative;
+    left: 92px;
+    top: 100px;
+    height: 1.8rem;
+    border:1px groove ;
+    width: 65px;
+    border-color:transparent;
+    color: rgb(46, 45, 45);
+    border-radius: 15px;
+    margin: -0.625rem auto;
+    font-size: 12px;
+    position: relative;
+    transition: all 250ms;
+    font-family: sans-serif;
+    color: rgb(46, 45, 45);
+    background-color: rgb(255, 255, 255);
+}
+#edit-cancel{
+    position: relative;
+    left: 148px;
+    top: 118px;
+    width: 65px;
+    height: 1.8rem;
+    border:1px groove ;
+    border-color:transparent;
+    color: rgb(46, 45, 45);
+    border-radius: 5px;
+    margin: -0.625rem auto;
+    position: relative;
+    transition: all 250ms;
+    font-family: sans-serif;
+    color: rgb(36, 34, 34);
+}
+#edit-cancel{
+    position: relative;
+    cursor: pointer;
+  }
+  
+  #edit-cancel:hover::after {
+    content: "cancel";
+    position: absolute;
+    top: 155%;
+    left: 55%;
+    transform: translateX(-50%);
+    background-color: rgba(43, 91, 223, 0.7);
+    color: rgb(255, 255, 255);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    transition: all 0.4ms ease; /* Adds a smooth transition effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 999; /* Ensures the edit text appears above other elements */
+  }
+#edit-input{
+    width: clamp(100px, 40vw, 210px);
+    height: 2.2rem;
+    padding: 0 1.25rem;
+    border: none;
+    /* border-bottom: 1px groove rgb(65, 189, 92); */
+    border-bottom: 1px groove rgb(201, 193, 193);
+    border-radius: 5px;
+    margin: 0.625rem auto;
+    outline: none;
+    transition: all 250ms;
+   
+    box-shadow: 2px 2px 7px 0 rgba(121, 118, 118, 0.2);
+    text-align: center;
+   
+    /* border-color:#d5dbd7; */
+    background-color: hsl(0, 0%, 99%);
+    position: relative;
+    left: 15px;
+    top: 0px;
+    font-size: 12px;
+    color: #8f8f92;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+}
+.usecase1{
+   font-size: 13px;
+   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

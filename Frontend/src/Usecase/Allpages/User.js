@@ -343,8 +343,8 @@ const handleTaskButtonClick = async (title) => {
               </span>
               </td>
              <td id="td"  className="task"><span onClick={() => {handleTaskButtonClick(obj.Title) }}><BiTask  size={18} /></span></td>
-             <td id="td"><span onClick={() => tousecase(obj.Title,obj.Team)}style={{cursor:"pointer"}}>Add Usecase</span></td>
-             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecaseReadEdit(obj.Title)}>view usecase</span></td>
+             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecase(obj.Title,obj.Team)}style={{cursor:"pointer"}}>Add Usecase</span></td>
+             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecaseReadEdit(obj.Title)}>View,Edit usecase</span></td>
              
 
 							

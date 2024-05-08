@@ -19,7 +19,7 @@
     font-family: Georgia, 'Times New Roman', Times, serif; 
     letter-spacing: 4px;
     font-weight: 500;
-    color:#719ece ;
+    color:#4072a7 ;
 
     /* background: #f6f6f9; */
     /* background: linear-gradient(to right,  #807b7b 100%, #454647 100%); */
@@ -66,3 +66,10 @@
      font-size: small;
      width: 220px;
   }
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+}

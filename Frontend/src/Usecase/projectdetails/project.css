@@ -318,7 +318,7 @@
     font-size: 11px;
     color: #313332;
     letter-spacing: 1px;
-    top: 3px;
+    top: -4px;
   }
   #sub{
     width: clamp(100px, 50vw, 130px);
