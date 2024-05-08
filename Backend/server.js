@@ -236,11 +236,11 @@ app.post("/project_infos",(req,res)=>{
 });
 //below code for posting a date and taskdetails
 app.post("/taskdetails", (req, res) => {
-    const { taskDetails,emailid } = req.body;
+    const { taskDetails,emailid,Title } = req.body;
     const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
   
-    const query = 'INSERT INTO taskdetails (Date, Dailytask, Email) VALUES (?,?,?)';
-    db.query(query, [currentDate, taskDetails,emailid], (err, results) => {
+    const query = 'INSERT INTO taskdetails (Date, Dailytask, Email,Title) VALUES (?,?,?,?)';
+    db.query(query, [currentDate, taskDetails,emailid,Title], (err, results) => {
       if (err) {
         console.error('Error executing MySQL query:', err);
         res.status(500).json({ error: 'Failed to add task' });
@@ -323,11 +323,11 @@ app.get("/project_infouser", (req, res) => {
 // });
 
 // });
-app.get("/task_details/:Email", (req, res) => {
-  let personEmail = req.params.Email; // Corrected variable name
-  let query = `SELECT * FROM taskdetails WHERE Email = ?`;
+app.get("/task_details/:Title", (req, res) => {
+  let Projecttitle = req.params.Title; // Corrected variable name
+  let query = `SELECT * FROM taskdetails WHERE Title = ?`;
 
-  db.query(query, [personEmail], (err, results) => { // Passing an array for the parameters
+  db.query(query, [Projecttitle], (err, results) => { // Passing an array for the parameters
     if (err) {
       console.error('Error querying MySQL database:', err);
       res.json({ error: 'Internal app error' });
@@ -336,7 +336,8 @@ app.get("/task_details/:Email", (req, res) => {
     
     // Check if task details were found for the email
     if (results.length === 0) {
-      res.json({ error: 'No task details found for the email provided' });
+      res.json({ Error: 'No task details found for the email provided' });
+      console.log(err);
       return;
     }
 
@@ -528,3 +529,18 @@ app.get('/usecases/:title', (req, res) => {
 //     }
 //   });
 // });
+//put method
+app.put('/usecases/:title', (req, res) => {
+  const { title } = req.params;
+  const { usecases } = req.body;
+ 
+  const projectTeamMembers = teamMembers.filter(member => member.project_title === title);
+  if (projectTeamMembers.length > 0) {
+      projectTeamMembers.forEach(member => {
+          member.usecases = usecases;
+      });
+      res.status(200).send('Use cases updated successfully.');  
+  } else {
+      res.status(404).send('Project not found.');
+  }
+});
