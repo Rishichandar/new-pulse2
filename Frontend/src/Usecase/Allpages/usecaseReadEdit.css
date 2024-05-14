@@ -1,4 +1,4 @@
-#titlee2{
+/* #titlee2{
     position: relative;
     top: 30px;
    left: 145px;
@@ -44,9 +44,9 @@
     border-radius: 4px;
     font-size: 11px;
     white-space: nowrap;
-    transition: all 0.4ms ease; /* Adds a smooth transition effect */
+    transition: all 0.4ms ease; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 999; /* Ensures the edit text appears above other elements */
+    z-index: 999; 
   }
  
 #usecase-submit{
@@ -106,16 +106,15 @@
     border-radius: 4px;
     font-size: 11px;
     white-space: nowrap;
-    transition: all 0.4ms ease; /* Adds a smooth transition effect */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 999; /* Ensures the edit text appears above other elements */
+    transition: all 0.4ms ease; 
+    z-index: 999;
   }
 #edit-input{
     width: clamp(100px, 40vw, 210px);
     height: 2.2rem;
     padding: 0 1.25rem;
     border: none;
-    /* border-bottom: 1px groove rgb(65, 189, 92); */
+    
     border-bottom: 1px groove rgb(201, 193, 193);
     border-radius: 5px;
     margin: 0.625rem auto;
@@ -125,7 +124,7 @@
     box-shadow: 2px 2px 7px 0 rgba(121, 118, 118, 0.2);
     text-align: center;
    
-    /* border-color:#d5dbd7; */
+    
     background-color: hsl(0, 0%, 99%);
     position: relative;
     left: 15px;
@@ -138,4 +137,160 @@
 .usecase1{
    font-size: 13px;
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+} */
+#details{
+  position: relative;
+  top: 170px;
+  left: 370px;
+  width: 500px;
+  
+}
+ #title2{
+    position: relative;
+    bottom: 20px;
+    left: -5px;
+    font-size: 35px;
+    font-family: Georgia, 'Times New Roman', Times, serif; Font-family:  "Zoho_Puvi_Bold"; 
+    letter-spacing: 4px;
+   
+    font-weight: 500;
+    color:#4072a7 ;
+
+    
+}
+#title3{
+  position: relative;
+  bottom: -60px;
+  left: 150px;
+  font-size: 35px;
+  font-family: Georgia, 'Times New Roman', Times, serif; Font-family:  "Zoho_Puvi_Bold"; 
+  letter-spacing: 4px;
+ 
+  font-weight: 500;
+  color:#4072a7 ;
+
+  
+}
+#datas{
+ font-size:1.3rem;
+ line-height: 35px;
+font-family: "Zoho_Puvi_Bold";
+letter-spacing: 1px;
+
+}
+#usecase-edit{
+  position: relative;
+  left: 267px;
+  top: 30px;
+  height: 1.8rem;
+  border:1px groove ;
+  border-color:transparent;
+  color: rgb(46, 45, 45);
+  border-radius: 5px;
+  margin: -0.625rem auto;
+  position: relative;
+  transition: all 250ms;
+  font-family: sans-serif;
+  color: rgb(46, 45, 45);
+ 
+}
+#usecase-edit {
+  position: relative;
+  cursor: pointer;
+}
+
+#usecase-edit:hover::after {
+  content: "Edit";
+  position: absolute;
+  top: 155%;
+  left: 55%;
+  transform: translateX(-50%);
+  background-color: rgba(43, 91, 223, 0.7);
+  color: rgb(255, 255, 255);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  transition: all 0.4ms ease; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 999; 
+}
+#edit-cancel{
+  position: relative;
+  left: 200px;
+  top:30px;
+  width: 65px;
+  height: 1.8rem;
+  border:1px groove ;
+  border-color:transparent;
+  color: rgb(46, 45, 45);
+  border-radius: 5px;
+  margin: -0.625rem auto;
+  position: relative;
+  transition: all 250ms;
+  font-family: sans-serif;
+  color: rgb(27, 26, 26);
+}
+#edit-cancel{
+  position: relative;
+  cursor: pointer;
+}
+
+#edit-cancel:hover::after {
+  content: "cancel";
+  position: absolute;
+  top: 155%;
+  left: 55%;
+  transform: translateX(-50%);
+  background-color: rgba(43, 91, 223, 0.7);
+  color: rgb(255, 255, 255);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  transition: all 0.4ms ease; 
+  z-index: 999;
+}
+#edit-input{
+  border: none;
+  font-size:1.3rem;
+  line-height: 35px;
+ font-family: "Zoho_Puvi_Bold";
+ letter-spacing: 1px;
+}
+#edit-input:focus{
+  border: 1px solid #00BFFF; /* Set the border color when the input is focused */
+}
+#edit-submit{
+  position: relative;
+  left: 92px;
+  top: 22px;
+  height: 1.8rem;
+  border:1px groove ;
+  width: 65px;
+  border-color:transparent;
+  color: rgb(46, 45, 45);
+  border-radius: 15px;
+  margin: -0.625rem auto;
+  font-size: 12px;
+  position: relative;
+  transition: all 250ms;
+  font-family: sans-serif;
+  color: rgb(255, 255, 255);
+  background-color: rgb(32, 207, 61);
+}
+/* for back button */
+#back-btn{
+ 
+  top: 20px;
+  left: 1250px;
+  width: 70px;
+  height: 30px;
+  text-align: center;
+  bottom: 10px;
+ 
+}
+#taskdetails{
+  position: relative;
+  bottom: 8px;
 }

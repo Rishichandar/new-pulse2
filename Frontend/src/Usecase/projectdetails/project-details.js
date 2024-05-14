@@ -108,10 +108,19 @@ const handleSubmit = (e) => {
   e.preventDefault();
   setSubmitted(true);
   // Check if required fields are filled
-  if (inputValue.Title.trim() === '' || inputValue.Description.trim() === '' || inputValue.Team.trim() === ''|| inputValue.Tools.trim() === '') {
-    toast.error("fill the required fields");
+  // if (inputValue.Title.trim() === '' || inputValue.Description.trim() === '' || inputValue.Tools.trim() === '') {
+  //   toast.error("fill the required fields");
+  //   return;
+  // }
+  if (
+    inputValue.Title.trim() === '' || 
+    inputValue.Tools.trim() === '' ||
+    !inputValue.Startdate||
+    !inputValue.Deadline
+) {
+    toast.error("Fill in all the required fields.");
     return;
-  }
+}
   // Proceed with form submission logic
   // For example, you can send the form data to the backend here
   console.log('Form submitted with data:', inputValue);
@@ -245,7 +254,7 @@ const handleBlur = () => {
               label={isFocused ? "Description *" : "Description"}
               
            />
-            <FormControl sx={{ m: 1, width: 300, position: 'relative', bottom: 49, right: 8 }}>
+      <FormControl sx={{ m: 1, width: 300, position: 'relative', bottom: 49, right: 8 }}>
       <InputLabel 
         id="demo-multiple-name-label" 
         style={{ fontSize: '14px' }}
@@ -297,7 +306,7 @@ const handleBlur = () => {
               InputLabelProps={{ style: { fontSize: '13px', fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"  } }}
               onFocus={handleFocus}
               onBlur={handleBlur}
-              label={isFocused ? "Teck stack *" : "Teck stack"}/>
+              label={isFocused ? "Tech stack *" : "Teck stack"}/>
               
             <input type='file' id='file1'  name='Files' onChange={handleChange} style={{position: 'relative', right:0,bottom:40}}
             />

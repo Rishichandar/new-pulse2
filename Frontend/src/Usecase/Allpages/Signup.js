@@ -4,16 +4,21 @@ import { useLocation } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import { IoIosArrowBack } from "react-icons/io";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 function Signup(){
   const navigate = useNavigate();
   const Email=useSelector((state)=>state.auth.user.Email)
- 
-  
+
+  console.log(Email)
   const location = useLocation();
   const { state } = location;
-  const { title } = state;
-  console.log(title)
-  const email = location.state?.email; // Access email from location state
+  const { title,summary } = state;
+
+  console.log("title",title)
+  // const summary = location.state?.summary; // Access email from location state
+  console.log("summary ",summary);
 
     function callalert(){
       toast.success("Task added successfully")
@@ -40,6 +45,7 @@ function Signup(){
             taskDetails,
             emailid,
             Title,
+            summary,
           });
           console.log(response.data);
           toast.success("Task added successfully")
@@ -58,7 +64,15 @@ function Signup(){
           }, 2000); // 3000 milliseconds = 3 seconds
     
   };
+  const back=()=>{
+    navigate("/user")
+
+  }
     return <>
+    <Stack spacing={2} direction="row">
+      <Button id='back-btn' variant="outlined" onClick={back}>Back</Button>
+    </Stack>
+   
     <div id="task-container">
         <div id="tot-form">
         {/* <h1>Welcome to the task page, {email}!</h1> */}

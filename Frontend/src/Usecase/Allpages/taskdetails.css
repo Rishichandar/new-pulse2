@@ -166,3 +166,14 @@ Deadline date,
 Tools varchar(100),
 Files Blob
 ); */
+
+#back-btn{
+ 
+  top: 60px;
+  left: 1245px;
+  width: 70px;
+  height: 30px;
+  text-align: center;
+  bottom: 10px;
+ 
+}

@@ -275,7 +275,7 @@ to {
           </Box>
         </Box>
       </div>
-      {/* <Box className="message Box" position={"absolute"} bottom={77} right={10}>
+      <Box className="message Box" position={"absolute"} bottom={77} right={10}>
         {message && (
           <Box
             bgcolor={"#4caf50"}
@@ -288,7 +288,7 @@ to {
             {message}
           </Box>
         )}
-      </Box> */}
+      </Box>
     </div>
   );
 };

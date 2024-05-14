@@ -11,6 +11,8 @@ import { RiTaskFill } from "react-icons/ri";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
+import { BiTask } from "react-icons/bi";
+
 const Admin = () => {
 	//for project details 
 	const[data,setData]=useState([])
@@ -228,7 +230,7 @@ const Admin = () => {
 			  <th id='thh'>deadline</th>
 			  <th id='thh'>Teck Stack</th>
 			  <th id='thh'>Deactivate/Activate</th>
-			  <th id='thh'><IoCloudDownloadOutline size={35}/></th>
+			  <th id='thh'>Download</th>
 			  <th id='thh'>Dailytask</th>
 			</tr>
 		  </thead>
@@ -252,8 +254,8 @@ const Admin = () => {
 					  <button id="deac-btn2" onClick={() => {cancelSoftDelete(obj.Projectid, Index); notify2(); }}>Activate</button>
 					</td>
 				  )}
-				  <td><button onClick={() => downloadCSV([obj])} id='down-btn1'><BsDownload size={20} style={{ color: "#2f9b2f" }}/></button></td>
-				  <td className='task1'><span onClick={() => {handleTaskButtonClick(obj.Title) }}><RiTaskFill  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
+				  <td><button onClick={() => downloadCSV([obj])} id='down-btn1'><IoCloudDownloadOutline size={25} style={{ color: "grey" }}/></button></td>
+				  <td className='task1'><span onClick={() => {handleTaskButtonClick(obj.Title) }}><BiTask  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
 				</tr>
 			  ))
 			}
@@ -265,7 +267,7 @@ const Admin = () => {
 		<table>
 		  <thead>
 			<tr>
-			  <th id='thh'>Title</th>
+			  <th id='thh'>title</th>
 			  <th id='thh'>Email</th>
 			  <th id='thh'>Description</th>
 			  <th id='thh'>Team members</th>
@@ -273,7 +275,7 @@ const Admin = () => {
 			  <th id='thh'>deadline</th>
 			  <th id='thh'>Teck Stack</th>
 			  <th id='thh'>Deactivate/Activate</th>
-			  <th id='thh'><IoCloudDownloadOutline size={35}/></th>
+			  <th id='thh'>Download</th>
 			  <th id='thh'>Dailytask</th>
 			</tr>
 		  </thead>
@@ -293,8 +295,8 @@ const Admin = () => {
 				  <button id="deac-btn2" onClick={() => {cancelSoftDelete(projectData.Projectid, 0); notify2(); }}style={{marginLeft:"15px"}}>Activate</button>
 				)}
 			  </td>
-			  <td><button onClick={() => downloadCSV([projectData])} id='down-btn1'><BsDownload size={20} style={{ color: "#2f9b2f" }} /></button></td>
-			  <td><span onClick={() => {handleTaskButtonClick(projectData.Title) }}style={{marginLeft:"20px"}}><RiTaskFill  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
+			  <td><button onClick={() => downloadCSV([projectData])} id='down-btn1'><IoCloudDownloadOutline size={25} style={{ color: "grey" }} /></button></td>
+			  <td><span onClick={() => {handleTaskButtonClick(projectData.Title) }}style={{marginLeft:"5px"}}><BiTask  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
 			</tr>
 		  </tbody>
 		</table>
@@ -316,12 +318,14 @@ const Admin = () => {
 		
 				<thead>
 					<tr>
-					<th id='thhh'>Date and Time</th>
+					<th id='thhh'>Usecase</th>
+					<th id='thhh'>Date</th>
+					<th id='thhh'>Time</th>
 					<th id='thhh'>Dailytask</th>
 				
 					{/* <th id='thh'>Deactivate/Activate</th> */}
 					
-					<th id='thhh'><IoCloudDownloadOutline size={26}/></th>
+					{/* <th id='thhh'><IoCloudDownloadOutline size={26}/></th> */}
 					</tr>
 				</thead>
 				<tbody>
@@ -338,9 +342,12 @@ const Admin = () => {
                {
                  Array.isArray(taskData) && taskData.map((obj) => (
                 <tr id='trrr' key={obj.ID}>
+				 <td id='tddd'>{obj.usecasetitle}</td>
                  <td id='tddd'>{obj.Date.substring(0, 10)}</td>
+				 <td id='tddd'>{obj.Time}</td>
                  <td id='tddd'>{obj.Dailytask}</td>
-                 <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td>
+
+                 {/* <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td> */}
                  </tr>
                    ))
                     }

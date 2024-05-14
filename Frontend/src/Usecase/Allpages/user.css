@@ -368,12 +368,12 @@
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     word-spacing: ;
     } */
-    #back-btn{
+    #back-button{
       position: absolute;
       top: 13px;
       right: 372px;
     }
-    #back-btn:hover{
+    #back-button:hover{
       color: #000000;
     }
     #task-add{
@@ -399,8 +399,10 @@
     #mini1{
       position: absolute;
       top: 100px;
+      right: 2px;
       max-height: 100px;
       overflow-x:auto;
+     
       
       
     }

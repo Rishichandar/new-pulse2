@@ -124,7 +124,7 @@ function User(){
         // Remove projectid from editedData
         const { Projectid, ...dataToSend } = editedData;
     
-        await axios.put(`http://localhost:8000/api/update/${dataToSend.Email}`, dataToSend);
+        await axios.put(`http://localhost:8000/api/update/${dataToSend.Title}`, dataToSend);
         setEditMode(false);
         setSuccess(true);
         toast.success("Updated successfully");
@@ -189,17 +189,18 @@ const downloadDataCSV = () => {
 //used to filter only team memmbers
 
 // for navigate to usecase page
-const tousecase = (title, teamMember) => {
+const tousecase = (title, teamMember,email) => {
   
   console.log("Team Member Data:", teamMember);
   console.log("Team Member title:", title);
-  navigate("/usecase", { state: { title, teamMember} });
+  console.log("Email:", email);
+  navigate("/usecase", { state: { title, teamMember,email} });
  
 };
-const tousecaseReadEdit = (title) => {
+const tousecaseReadEdit = (title,email) => {
  
   console.log("Team Member title:", title);
-  navigate("/usecaseReadEdit", { state: { title} });
+  navigate("/usecaseReadEdit", { state: { title,email} });
  
 };
 const totask = (title) => {
@@ -236,7 +237,7 @@ const totask = (title) => {
 //   }
 //   };
 const handleTaskButtonClick = async (title) => {
-  console.log(title);
+  console.log("title:",title);
   try {
     const response = await fetch(`http://localhost:8000/task_details/${title}`);//http://localhost:8000/task_details
     if (!response.ok) {
@@ -251,7 +252,7 @@ const handleTaskButtonClick = async (title) => {
     console.log(jsonData)
     setError(null);
   } catch (error) {
-    alert('Error fetching task data: ', error);
+    toast.error("didnt add any taskdetails");
   }
   };
 
@@ -298,7 +299,7 @@ const handleTaskButtonClick = async (title) => {
           <input  id="edit-tools" type="text" name="Tools" value={editedData.Tools} onChange={handleChanges} />
           <br></br>
           <button  id="sub2"  onClick={() => { saveChanges(); setEditMode(false) }}>Save</button>
-          <span id="back-btn" onClick={() => setEditMode(false)}><IoArrowBack size={20} style={{color:" #4f4f52"}}/></span>
+          <span id="back-button" onClick={() => setEditMode(false)}><IoArrowBack size={20} style={{color:" #4f4f52"}}/></span>
           <br></br>
           
           </form>
@@ -315,7 +316,7 @@ const handleTaskButtonClick = async (title) => {
 					<th id="th">deadline</th>
 					<th id="th">Tools used</th>
 				
-          <th colSpan={5} id="th">Activity</th>
+          <th colSpan={4} id="th">Activity</th>
 
           {/* <th id="th"> Add Task</th> */}
 					</tr>
@@ -337,15 +338,15 @@ const handleTaskButtonClick = async (title) => {
 							<td id='td'>{obj.Tools}</td>
 							{/* <td id='tdd'>{obj.Files}</td> */}
               <td className="edit" id="td" onClick={() => handleEdit(obj)}><MdEdit  size={18} style={{color:" rgb(97, 94, 94)"}}/></td>
-              <td id="td" className="taskadd">
+              <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecase(obj.Title,obj.Team,obj.Email)}style={{cursor:"pointer"}}>Add Usecase</span></td>
+             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecaseReadEdit(obj.Title,obj.Email)}>Edit usecase</span></td>
+              {/* <td id="td" className="taskadd">
               <span onClick={() => totask(obj.Title)}>
               <MdOutlineTask size={20} />
               </span>
-              </td>
+              </td> */}
              <td id="td"  className="task"><span onClick={() => {handleTaskButtonClick(obj.Title) }}><BiTask  size={18} /></span></td>
-             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecase(obj.Title,obj.Team)}style={{cursor:"pointer"}}>Add Usecase</span></td>
-             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecaseReadEdit(obj.Title)}>View,Edit usecase</span></td>
-             
+            
 
 							
 						
@@ -373,12 +374,15 @@ const handleTaskButtonClick = async (title) => {
 		
 				<thead>
 					<tr>
-					<th id='thhh'>Date and Time</th>
+          <th id='thhh'>Usecase</th>
+					<th id='thhh'>Date</th>
+          <th id='thhh'>Time</th>
 					<th id='thhh'>Dailytask</th>
+        
 				
 					{/* <th id='thh'>Deactivate/Activate</th> */}
 					
-					<th id='thhh'><IoCloudDownloadOutline size={26}/></th>
+					{/* <th id='thhh'><IoCloudDownloadOutline size={26}/></th> */}
 					</tr>
 				</thead>
 				<tbody>
@@ -394,9 +398,12 @@ const handleTaskButtonClick = async (title) => {
 } */}
 {Array.isArray(taskData) && taskData.map((obj) => (
   <tr id='trrr' key={obj.ID}>
+    <td id='tddd'>{obj.usecasetitle}</td>
     <td id='tddd'>{obj.Date.substring(0, 10)}</td>
+    <td id='tddd'>{obj.Time}</td>
     <td id='tddd'>{obj.Dailytask}</td>
-    <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td>
+    
+    {/* <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td> */}
   </tr>
 ))}
 	

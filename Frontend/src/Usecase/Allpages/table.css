@@ -1,12 +1,12 @@
 #tab1{
   /* table-layout: fixed; */
   padding:1px;
-  overflow-y: auto; /* Changed to overflow-y */
+  overflow: scroll; /* Changed to overflow-y */
   position: relative;
   bottom: 40px;
   border-collapse: collapse;
   max-height: 330px;
-  top: 100px;
+  top: 85px;
   width: 1200px;
   left: 145px;
 }
@@ -37,18 +37,25 @@
   border: none;
   
   background-color: #fff;
-  border-radius: 25px;
-  box-shadow: 2px 2px 7px 0 rgb(0, 0, 0, 0.2);
+  /* border-radius: 25px; */
+  /* box-shadow: 2px 2px 7px 0 rgb(0, 0, 0, 0.2); */
   outline: none;
   color: rgb(177, 171, 171);
   font-family: 'montserrat','sans-serif';
   position: relative;
   top:35px;
-  left:50px;
-  border-color: #e3e4e3;
+  left:500px;
+  border-bottom: 1px groove rgb(190, 186, 186);
 
   
   
+  }
+  #user-ID:focus{
+    background-color: rgb(255, 255, 255);
+    
+
+
+
   }
   ::placeholder{
     font-size:8px;
@@ -57,28 +64,37 @@
   #search-icon{
     position: relative;
     top: 38px;
-    right:245px;
+    left:195px;
     color: rgb(119, 116, 116);
   }
   #search-close{
     position: relative;
-    top: 40px;
-    left: 10px;
+    top: 41px;
+    left: 465px;
   }
 
   
 #thh {
-  font-size: 11px;
+  font-size: 10px;
   width: 120px;
-  background-color: rgba(247, 247, 247, 0.945);
-  
+  /* background-color:#a5a5a5; */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  letter-spacing: 2px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  color: rgb(99, 99, 99);
+  color: rgb(0, 0, 0);
   /* background-color: #4ae459; */
   letter-spacing: 1px;
   position: sticky;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  height: 5px;
+  height: 0px;
+  font-family:'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+ 
+  
+  
 }
 #thhh {
   font-size: 11px;
@@ -87,22 +103,31 @@
   background-color: rgba(247, 247, 247, 0.945);
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: rgb(99, 99, 99);
+  font-family:'Source Sans Pro', sans-serif;
   letter-spacing: 1px;
-
+ 
+  
 }
   
   
 
   #tdd{
-    width: 100px;
+    width: 120px;
     height: 60px;
     text-align: center;
-    height: 30px;
+    height: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 12px;
-    color: rgb(90, 95, 91);
-   
+    font-size: 10px;
+    /* text-transform: uppercase; */
+    color: rgb(41, 39, 39);
+    /* background-color:#f8f8fd; */
     font-weight:500;
+    letter-spacing: 1px;
+    /* font-family: 'PuviBold', Roboto, sans-serif; */
+  
+   
+   
+   
     
    
   }
@@ -121,6 +146,7 @@
   #mini{
     position: absolute;
     top: 150px;
+    right: 1px;
     max-height: 100px;
     overflow-x:auto;
     
@@ -139,10 +165,16 @@
   
   table,th,td{
     border: 1px groove #c6cec8;
-    border-collapse: collapse;
-    padding: 9px;
-    font-size: 9px;
+    border: 1px solid rgba(145, 140, 140, 0.3);
 
+    border-collapse: collapse;
+    padding: 12px;
+    font-size: 9px;
+    
+
+  }
+  table{
+    border-radius: 10px;
   }
   #tddd{
     /* border: 1px groove rgb(71, 232, 100); */
@@ -227,7 +259,7 @@
     margin: -0.625rem auto;
     position: relative;
     top: 0px;
-    left: 40px;
+    left: 30px;
     transition: all 250ms;
     font-family: sans-serif;
     background-color: none;
@@ -300,9 +332,9 @@
   .toggle-bar {
     position: fixed;
     top: 55px;
-    right: -400px; /* initially off-screen */
+    right: -410px; /* initially off-screen */
     height: 100%;
-    width: 400px;
+    width: 410px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease; /* animate the right property */
