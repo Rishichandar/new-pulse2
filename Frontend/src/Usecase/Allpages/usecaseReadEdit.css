@@ -290,6 +290,12 @@ bottom: 50px;
   bottom: 10px;
  
 }
+th{
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: rgb(73, 70, 70);
+}
 #taskdetails{
   position: relative;
   font-size: larger;
@@ -299,7 +305,7 @@ bottom: 50px;
   width: 85%;
   border-collapse: collapse;
   position: relative;
-  top: 80px;
+  top: 150px;
   left: 145px;
   text-align: center;
 }

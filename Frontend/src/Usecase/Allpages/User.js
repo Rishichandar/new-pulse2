@@ -370,9 +370,7 @@ const handleTaskButtonClick = async (title) => {
   </tbody>
 </table>
           <span onClick={closeToggleBar}><IoClose /></span>
-		  {/* <button onClick={downloadAllCSV2} id='down-al2' ><BsCloudDownload  size={30}style={{
-      color: "#4a5c7a"
-    }}/></button> */}
+		 
         </div>
 		</div>
     

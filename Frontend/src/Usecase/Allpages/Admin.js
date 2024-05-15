@@ -143,7 +143,7 @@ const Admin = () => {
 		  console.log(jsonData)
 		  setError(null);
 		} catch (error) {
-		  alert('Error fetching task data: ', error);
+		 toast.error("Employee didnt add task")
 		}
 	  };
 	  //for search project

@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 export const UsecaseReadEdit = () => {
     const location = useLocation();
     const title = location.state?.title;
-    const email = location.state?.email;
+    // const email = location.state?.email;
     const [usecases, setUsecases] = useState([]);
     const [editModeId, setEditModeId] = useState(null); // State to track edit mode for a specific row
     const [editedUsecase, setEditedUsecase] = useState({});

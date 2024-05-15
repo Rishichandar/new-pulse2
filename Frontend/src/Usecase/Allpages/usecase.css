@@ -82,7 +82,7 @@
 
 #filled-basic,#outlined-basic,#outlined-multiline-static,#demo-multiple-name-label,#sel,#demo-simple-select{
   font-size: 12px;
-  color: gray;
+  color: rgb(97, 92, 92);
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 #back-btn{
@@ -97,7 +97,7 @@
 }
 #contain1 {
   box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.2);
-  width: 500px;
+  width: 450px;
   height: 300px;
   position: relative;
   left: 200px;
@@ -110,7 +110,7 @@
 #title1 {
   font-size: 20px;
   letter-spacing: 4px;
-  color: #4072a7;
+  color: #2d2e30;
   position: relative;
   /* bottom: 70px; */
   

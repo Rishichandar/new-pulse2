@@ -170,7 +170,22 @@ const handleBlur = () => {
     navigate("/user")
 
   }
-    
+  const [typedTitle, setTypedTitle] = useState(''); // State to hold the typed title
+  useEffect(() => {
+    // Function to simulate typing effect
+    const typeTitle = async () => {
+      for (let i = 0; i < title.length; i++) {
+        setTypedTitle(prevTitle => prevTitle + title[i]); // Append each character to typedTitle
+        await new Promise(resolve => setTimeout(resolve, 200)); // Pause for 100 milliseconds between each character
+      }
+    };
+
+    // Call the function to start typing when the component mounts
+    typeTitle();
+
+    // Clean up function to clear typed title when the component unmounts
+    return () => setTypedTitle('');
+  }, [title]);
 
   
   
@@ -182,7 +197,7 @@ const handleBlur = () => {
       <Button id='back-btn' variant="outlined" onClick={back}>Back</Button>
     </Stack>
       <div id='contain1'>
-      <span id='title1'> {title}</span>
+      <span id='title1'>{typedTitle}</span>
       </div>
      
          <form id='usecase-Form'>
