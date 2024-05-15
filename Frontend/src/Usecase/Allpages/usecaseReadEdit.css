@@ -148,12 +148,10 @@
  #title2{
     position: relative;
     bottom: 20px;
-    left: -5px;
-    font-size: 35px;
-    font-family: Georgia, 'Times New Roman', Times, serif; Font-family:  "Zoho_Puvi_Bold"; 
+    left: 5px;
+    font-size: 25px;
+    /* font-family: Georgia, 'Times New Roman', Times, serif; Font-family:  "Zoho_Puvi_Bold";  */
     letter-spacing: 4px;
-   
-    font-weight: 500;
     color:#4072a7 ;
 
     
@@ -172,16 +170,19 @@
   
 }
 #datas{
- font-size:1.3rem;
+ font-size:1.0rem;
  line-height: 35px;
-font-family: "Zoho_Puvi_Bold";
+
 letter-spacing: 1px;
+position: relative;
+bottom: 50px;
+;
 
 }
 #usecase-edit{
   position: relative;
-  left: 267px;
-  top: 30px;
+  left: 5px;
+  top: 0px;
   height: 1.8rem;
   border:1px groove ;
   border-color:transparent;
@@ -202,7 +203,7 @@ letter-spacing: 1px;
 #usecase-edit:hover::after {
   content: "Edit";
   position: absolute;
-  top: 155%;
+  top: 165%;
   left: 55%;
   transform: translateX(-50%);
   background-color: rgba(43, 91, 223, 0.7);
@@ -217,15 +218,11 @@ letter-spacing: 1px;
 }
 #edit-cancel{
   position: relative;
-  left: 200px;
-  top:30px;
-  width: 65px;
-  height: 1.8rem;
-  border:1px groove ;
+  left: 0px;
+  top:0px;
   border-color:transparent;
+  background-color: white;
   color: rgb(46, 45, 45);
-  border-radius: 5px;
-  margin: -0.625rem auto;
   position: relative;
   transition: all 250ms;
   font-family: sans-serif;
@@ -253,24 +250,27 @@ letter-spacing: 1px;
 }
 #edit-input{
   border: none;
-  font-size:1.3rem;
-  line-height: 35px;
- font-family: "Zoho_Puvi_Bold";
  letter-spacing: 1px;
+ width: 115px;
+ font-size: 13px;
+ color: grey;
+
+
 }
 #edit-input:focus{
-  border: 1px solid #00BFFF; /* Set the border color when the input is focused */
+  border: none;
+               /* Set the border color when the input is focused */
 }
 #edit-submit{
   position: relative;
-  left: 92px;
-  top: 22px;
+  left:0px;
+  top: 0px;
   height: 1.8rem;
   border:1px groove ;
   width: 65px;
   border-color:transparent;
   color: rgb(46, 45, 45);
-  border-radius: 15px;
+  border-radius: 5px;
   margin: -0.625rem auto;
   font-size: 12px;
   position: relative;
@@ -292,5 +292,35 @@ letter-spacing: 1px;
 }
 #taskdetails{
   position: relative;
-  bottom: 8px;
+  font-size: larger;
+  color: green; 
+}
+#usecase-table{
+  width: 85%;
+  border-collapse: collapse;
+  position: relative;
+  top: 80px;
+  left: 145px;
+  text-align: center;
+}
+.task1 {
+  position: relative;
+  cursor: pointer;
+}
+
+.task1:hover::after {
+  content: "Add Task";
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(43, 91, 223, 0.7);
+  color: rgb(255, 255, 255);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  transition: all 0.4ms ease; /* Adds a smooth transition effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 999; /* Ensures the edit text appears above other elements */
 }

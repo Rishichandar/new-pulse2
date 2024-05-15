@@ -74,9 +74,9 @@
   #table{
   position: relative;
   bottom:40px;
-  left: 220px;
-  background-color: #e7f7ec;
-  width: 1000px;
+  left:160px;
+ background-color: rgb(255, 255, 255);
+  width: 1170px;
   
   
   
@@ -279,32 +279,17 @@
   #box button:hover {
     background-color: #3d69c9;
   }
-  #th{
-      width: 120px;
-      height: 40px;
-      color: rgb(99, 99, 99);
-      background-color: rgba(247, 247, 247, 0.945);
-      font-size: 11px;
-      letter-spacing: 1px;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   th{
+     color: rgb(122, 118, 118);
+     font-size: 13px;
+      
+     
   }
-  #td{
-      width: 120px;
-      padding: 15px;
+  td{
       text-align: center;
-      /* padding: 5px; */
-      height: 40px;
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      font-size: 11px;
-      color: rgb(97, 94, 94);
-      font-size: 11px;
-   
-      padding-left: 15px;
-      color: rgb(95, 90, 90);
-      background-color: #ffffff;
-      font-weight:500;
+      font-size: 13px;
         
-    }
+    } 
     /* #search-icon{
       position: relative;
       top: -50px;
@@ -472,4 +457,14 @@
       z-index: 999; /* Ensures the edit text appears above other elements */
     }
    
-    
+    #your-info{
+      position: relative;
+      top: 100px;
+      left: 165px;
+      color: rgb(33, 33, 233);
+    }
+    #icon1{
+      position: relative;
+    top: 3px;
+    left: 5px;
+    }

@@ -15,6 +15,7 @@ import { BiTask } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 import { BsDownload } from "react-icons/bs";
 import { IoCloudDownloadOutline } from "react-icons/io5";
+import { IoMdArrowDropdown } from "react-icons/io";
 function User(){
   //fetch user using email
 
@@ -248,6 +249,7 @@ const handleTaskButtonClick = async (title) => {
     setTaskData(jsonData);
     setToggleBarOpen(true);
     setShowTab1(!showTab1);
+    setShowYourInfo(false);
    
     console.log(jsonData)
     setError(null);
@@ -255,12 +257,16 @@ const handleTaskButtonClick = async (title) => {
     toast.error("didnt add any taskdetails");
   }
   };
+  const [showYourInfo, setShowYourInfo] = useState(true); // State to control visibility
 
     return <>
-    {/* <div id="your-info">
-      <span>Hi</span>
-
-    </div> */}
+    
+    {!editMode && showYourInfo && (
+        <span id="your-info">
+          My Projects<IoMdArrowDropdown id="icon1" />
+        </span>
+      )}
+ 
     <div  className={`cont ${editMode ? 'blur-background' : ''}`}>
         <div>
           {/* <span id="emp-det">Your Details</span> */}
@@ -305,62 +311,35 @@ const handleTaskButtonClick = async (title) => {
           </form>
         </div>
       ) : (
-        <table id="table" style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }} >
+        <table id="table" style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}>
         <thead>
-					<tr>
-
-					<th id="th">Project Title</th>
-          <th id="th">Description</th>
-					<th id="th">Team members</th>
-					<th id="th">startdate</th>
-					<th id="th">deadline</th>
-					<th id="th">Tools used</th>
-				
-          <th colSpan={4} id="th">Activity</th>
-
-          {/* <th id="th"> Add Task</th> */}
-					</tr>
-				</thead>
-                <tbody>
-
-           
-          {
-					yourData.map((obj)=>(
-						<tr  key={obj.Projectid}>
-							{/* <td  id='tdd'>{obj.Projectid}</td> */}
-							<td id='td'>{obj.Title}</td>
-							<td id='td'>{obj.Description}</td>
-							<td id='td'>{obj.Team}</td>
-							<td id='td'>{obj.Startdate.substring(0, 10)}</td> {/* Extract only the date */}
-                            <td id='td'>{obj.Deadline.substring(0, 10)}</td> {/* Extract only the date */}
-							{/* <td id='tdd'>{obj.Startdate}</td>
-							<td id='tdd'>{obj.Deadline}</td> */}
-							<td id='td'>{obj.Tools}</td>
-							{/* <td id='tdd'>{obj.Files}</td> */}
-              <td className="edit" id="td" onClick={() => handleEdit(obj)}><MdEdit  size={18} style={{color:" rgb(97, 94, 94)"}}/></td>
-              <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecase(obj.Title,obj.Team,obj.Email)}style={{cursor:"pointer"}}>Add Usecase</span></td>
-             <td id="td" style={{cursor:"pointer"}}><span onClick={() => tousecaseReadEdit(obj.Title,obj.Email)}>Edit usecase</span></td>
-              {/* <td id="td" className="taskadd">
-              <span onClick={() => totask(obj.Title)}>
-              <MdOutlineTask size={20} />
-              </span>
-              </td> */}
-             <td id="td"  className="task"><span onClick={() => {handleTaskButtonClick(obj.Title) }}><BiTask  size={18} /></span></td>
-            
-
-							
-						
-						</tr>
-					
-						
-					))
-					
-			}
-
-                      
-                       </tbody>
-                       
-        </table>
+          <tr>
+            <th>Project Title</th>
+            <th>Description</th>
+            <th>Team members</th>
+            <th>Start Date</th>
+            <th>Deadline</th>
+            <th>Tools used</th>
+            <th colSpan={4}>Activity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {yourData.map((obj) => (
+            <tr key={obj.Projectid}>
+              <td>{obj.Title}</td>
+              <td>{obj.Description}</td>
+              <td>{obj.Team}</td>
+              <td>{obj.Startdate.substring(0, 10)}</td> {/* Extract only the date */}
+              <td>{obj.Deadline.substring(0, 10)}</td> {/* Extract only the date */}
+              <td>{obj.Tools}</td>
+              <td className="edit" onClick={() => handleEdit(obj)}><MdEdit size={18} style={{ color: "rgb(97, 94, 94)" }} /></td>
+              <td style={{ cursor: "pointer" }}><span onClick={() => tousecase(obj.Title, obj.Team, obj.Email)} style={{ cursor: "pointer" }}>Add Usecase</span></td>
+              <td style={{ cursor: "pointer" }}><span onClick={() => tousecaseReadEdit(obj.Title, obj.Email)}>Edit usecase</span></td>
+              <td className="task"><span onClick={() => { handleTaskButtonClick(obj.Title) }}><BiTask size={18} /></span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       )}
      
       
@@ -370,47 +349,26 @@ const handleTaskButtonClick = async (title) => {
      <div className={`toggle-bar ${toggleBarOpen ? 'open' : ''}`} >
         <div className="toggle-bar-content">
 		
-		<table id='mini1'>
-		
-				<thead>
-					<tr>
-          <th id='thhh'>Usecase</th>
-					<th id='thhh'>Date</th>
-          <th id='thhh'>Time</th>
-					<th id='thhh'>Dailytask</th>
-        
-				
-					{/* <th id='thh'>Deactivate/Activate</th> */}
-					
-					{/* <th id='thhh'><IoCloudDownloadOutline size={26}/></th> */}
-					</tr>
-				</thead>
-				<tbody>
-				{/* {
-                  taskData.map((obj) => (
-                 <tr id='trrr' key={obj.ID}>
-                 <td id='tddd'>{obj.Date.substring(0, 10)}</td>
-                 <td id='tddd'>{obj.Dailytask}</td>
-               
-                <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td>
+        <table id='mini1'>
+  <thead>
+    <tr>
+      <th>Usecase</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Daily Task</th>
     </tr>
-  ))
-} */}
-{Array.isArray(taskData) && taskData.map((obj) => (
-  <tr id='trrr' key={obj.ID}>
-    <td id='tddd'>{obj.usecasetitle}</td>
-    <td id='tddd'>{obj.Date.substring(0, 10)}</td>
-    <td id='tddd'>{obj.Time}</td>
-    <td id='tddd'>{obj.Dailytask}</td>
-    
-    {/* <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td> */}
-  </tr>
-))}
-	
-					
-					
-				</tbody>
-			</table>
+  </thead>
+  <tbody>
+    {Array.isArray(taskData) && taskData.map((obj) => (
+      <tr key={obj.ID}>
+        <td>{obj.usecasetitle}</td>
+        <td>{obj.Date.substring(0, 10)}</td>
+        <td>{obj.Time}</td>
+        <td>{obj.Dailytask}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
           <span onClick={closeToggleBar}><IoClose /></span>
 		  {/* <button onClick={downloadAllCSV2} id='down-al2' ><BsCloudDownload  size={30}style={{
       color: "#4a5c7a"

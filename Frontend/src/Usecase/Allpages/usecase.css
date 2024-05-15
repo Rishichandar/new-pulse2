@@ -61,16 +61,7 @@
     border-radius: 10px;
 } */
 
-#usecase-Form{
-  width: 100px;
-  height: 100px;
-  /* border: 1px groove grey; */
-  position: relative;
-  left: 850px;
-  top: -5px;
 
-
-}
 #attach-file{
   margin-top: 25px;
   position: relative;
@@ -88,19 +79,7 @@
   background-color: rgb(27, 216, 59);
   height: 40px;
 }
-#title1{
-  position: relative;
-  top:230px;
-  left: 80px;
-  font-size: 33px;
-  font-family: Georgia, 'Times New Roman', Times, serif; Font-family:  "Zoho_Puvi_Bold"; 
-  letter-spacing: 4px;
- 
-  font-weight: 500;
-  color:#4072a7 ;
- 
 
-}
 #filled-basic,#outlined-basic,#outlined-multiline-static,#demo-multiple-name-label,#sel,#demo-simple-select{
   font-size: 12px;
   color: gray;
@@ -115,4 +94,34 @@
   text-align: center;
   bottom: 10px;
  
+}
+#contain1 {
+  box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.2);
+  width: 500px;
+  height: 300px;
+  position: relative;
+  left: 200px;
+  top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title1 {
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: #4072a7;
+  position: relative;
+  /* bottom: 70px; */
+  
+}
+#usecase-Form{
+  width: 100px;
+  height: 100px;
+  /* border: 1px groove grey; */
+  position: relative;
+  left: 900px;
+  top: -270px;
+
+
 }

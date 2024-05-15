@@ -26,6 +26,7 @@ function UserMenu() {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.auth.user);
+  console.log("data:",data);
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");

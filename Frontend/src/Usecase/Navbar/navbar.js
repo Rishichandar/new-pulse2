@@ -6,7 +6,10 @@ import { PiSignOutFill } from "react-icons/pi";
 import { RiAdminFill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 import { BiTask } from "react-icons/bi";
+import { useSelector } from "react-redux";
 function Navbar(){
+   const roleid=useSelector((state)=>state.auth.user.RoleId)
+   console.log("roleid :",roleid);
 
     return <>
      <nav className="navbar">
@@ -16,9 +19,14 @@ function Navbar(){
             <Link to='/home' className="Home">
             <li><div id='icons'><FaHome/>{"\t"}Home</div></li>
              </Link>
-             <Link to='/admin' className="Admin">
+             {/* <Link to='/admin' className="Admin">
                 <li><div id='icons'><RiAdminFill />{"\t"}Admin</div></li>
-             </Link>
+             </Link> */}
+             {roleid !== 2 && (
+            <Link to='/admin' className="Admin">
+              <li><div id='icons'><RiAdminFill />{"\t"}Admin</div></li>
+            </Link>
+          )}
              <Link to='/user' className="user">
                 <li><div id='icons'><FaUserCircle />{"\t"}User</div></li>
              </Link>

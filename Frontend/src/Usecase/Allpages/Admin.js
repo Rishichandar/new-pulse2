@@ -12,7 +12,8 @@ import { IoSearchOutline } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiTask } from "react-icons/bi";
-
+import { IoMdArrowDropdown } from "react-icons/io";
+import { FiSearch } from "react-icons/fi";
 const Admin = () => {
 	//for project details 
 	const[data,setData]=useState([])
@@ -187,8 +188,13 @@ const Admin = () => {
 		setProjectData(null); // Clear search results
 		setprojectTitle(''); // Clear search input
 	};
+	const [showSearchBar, setShowSearchBar] = useState(false);
+	const toggleSearchBar = () => {
+		setShowSearchBar(!showSearchBar);
+	  };
 	return (
 		 <>
+		 <span id='all' style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}>All Projects<IoMdArrowDropdown size={15} id='all-icon' /></span>
 		  {/* <input type="text" id="user-ID" placeholder="Project-name" value={projectTitle} name='ID' onChange={handleChange1}/> */}
 		 {/* <button id='taskbtn' onClick={toggleTabs}>Dailytask</button> */}
 		 {/* <span id= 'p'>Project Details</span> */}
@@ -196,8 +202,23 @@ const Admin = () => {
 		{/* <BsCloudDownload  size={18}style={{
       color: "#ffff" ,marginBottom:"-5px"
     }}/> */}
-	        <input type="text" id="user-ID" placeholder="Title" value={projectTitle} name='ID' onChange={handleChange1}style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}/>
-	        <span  onClick={clearSearch} id='search-close'style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)',color:"grey" }}><IoClose size={20}/></span ><span id='search-icon'style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}><IoSearchOutline size={16}/></span>
+	           <span id='search1' onClick={toggleSearchBar}><FiSearch  size={20}/></span>
+	         {/* Search Bar */}
+      {showSearchBar && (
+        <>
+          <input
+            type="text"
+            id="user-ID"
+            placeholder="Title"
+            value={projectTitle}
+            name='ID'
+            onChange={handleChange1}
+            style={{ filter: showSearchBar ? 'blur(0px)' : 'blur(20px)' }}
+          />
+          <span onClick={clearSearch} id='search-close' style={{ color: "grey" }}><IoClose size={20} /></span>
+          <span id='search-icon'><IoSearchOutline size={16} /></span>
+        </>
+      )}
 			 {/* <button onClick={searchProject}>Search</button> */}
 			{/* <div id='mini-tab'>
 			  {projectData && (
@@ -217,93 +238,92 @@ const Admin = () => {
 		
 		
 		{
-	projectData === null ? (
-	  <div id="tab1" style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}>
-		<table>
-		  <thead>
-			<tr>
-			  <th id='thh'>Title</th>
-			  <th id='thh'>Email</th>
-			  <th id='thh'>Description</th>
-			  <th id='thh'>Team members</th>
-			  <th id='thh'>startdate</th>
-			  <th id='thh'>deadline</th>
-			  <th id='thh'>Teck Stack</th>
-			  <th id='thh'>Deactivate/Activate</th>
-			  <th id='thh'>Download</th>
-			  <th id='thh'>Dailytask</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			{
-			  data.map((obj, Index) => (
-				<tr key={obj.Projectid}>
-				  <td id='tdd'>{obj.Title}</td>
-				  <td id='tdd'>{obj.Email}</td>
-				  <td id='tdd'>{obj.Description}</td>
-				  <td id='tdd'>{obj.Team}</td>
-				  <td id='tdd'>{obj.Startdate.substring(0, 10)}</td>
-				  <td id='tdd'>{obj.Deadline.substring(0, 10)}</td>
-				  <td id='tdd'>{obj.Tools}</td>
-				  {activationStates[Index] ? (
-					<td id='tdd'>
-					  <button id="deac-btn1" onClick={() => { handleSoftDelete(obj.Projectid, Index); notify1(); }}>Deactivate</button>
-					</td>
-				  ) : (
-					<td id='tdd'>
-					  <button id="deac-btn2" onClick={() => {cancelSoftDelete(obj.Projectid, Index); notify2(); }}>Activate</button>
-					</td>
-				  )}
-				  <td><button onClick={() => downloadCSV([obj])} id='down-btn1'><IoCloudDownloadOutline size={25} style={{ color: "grey" }}/></button></td>
-				  <td className='task1'><span onClick={() => {handleTaskButtonClick(obj.Title) }}><BiTask  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
-				</tr>
-			  ))
-			}
-		  </tbody>
-		</table>
-	  </div>
-	) : (
-	  <div id="tab1" style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}>
-		<table>
-		  <thead>
-			<tr>
-			  <th id='thh'>title</th>
-			  <th id='thh'>Email</th>
-			  <th id='thh'>Description</th>
-			  <th id='thh'>Team members</th>
-			  <th id='thh'>startdate</th>
-			  <th id='thh'>deadline</th>
-			  <th id='thh'>Teck Stack</th>
-			  <th id='thh'>Deactivate/Activate</th>
-			  <th id='thh'>Download</th>
-			  <th id='thh'>Dailytask</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			<tr>
-			  <td id="tddd">{projectData.Title}</td>
-			  <td id="tddd">{projectData.Email}</td>
-			  <td id="tddd">{projectData.Description}</td>
-			  <td id="tddd">{projectData.Team}</td>
-			  <td id="tddd">{projectData.Startdate}</td>
-			  <td id="tddd">{projectData.Deadline}</td>
-			  <td id="tddd">{projectData.Tools}</td>
-			  <td>
-				{activationStates[0] ? (
-				  <button id="deac-btn1" onClick={() => { handleSoftDelete(projectData.Projectid, 0); notify1(); }} style={{marginLeft:"15px"}}>Deactivate</button>
-				) : (
-				  <button id="deac-btn2" onClick={() => {cancelSoftDelete(projectData.Projectid, 0); notify2(); }}style={{marginLeft:"15px"}}>Activate</button>
-				)}
-			  </td>
-			  <td><button onClick={() => downloadCSV([projectData])} id='down-btn1'><IoCloudDownloadOutline size={25} style={{ color: "grey" }} /></button></td>
-			  <td><span onClick={() => {handleTaskButtonClick(projectData.Title) }}style={{marginLeft:"5px"}}><BiTask  size={20} style={{marginLeft:"20px",color: " #47d86b"}} /></span></td>
-			</tr>
-		  </tbody>
-		</table>
-	  </div>
-	)
-  }
-			
+  projectData === null ? (
+    <div id="tab1" style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Email</th>
+            <th>Description</th>
+            <th>Team members</th>
+            <th>Start Date</th>
+            <th>Deadline</th>
+            <th>Tech Stack</th>
+            <th>Deactivate/Activate</th>
+            <th>Daily Task</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((obj, Index) => (
+            <tr key={obj.Projectid}>
+              <td>{obj.Title}</td>
+              <td>{obj.Email}</td>
+              <td>{obj.Description}</td>
+              <td>{obj.Team}</td>
+              <td>{obj.Startdate.substring(0, 10)}</td>
+              <td>{obj.Deadline.substring(0, 10)}</td>
+              <td>{obj.Tools}</td>
+              {activationStates[Index] ? (
+                <td>
+                  <button id='deac-btn1' onClick={() => { handleSoftDelete(obj.Projectid, Index); notify1(); }}>Deactivate</button>
+                </td>
+              ) : (
+                <td>
+                  <button id='deac-btn2' onClick={() => {cancelSoftDelete(obj.Projectid, Index); notify2(); }}>Activate</button>
+                </td>
+              )}
+              <td><span onClick={() => {handleTaskButtonClick(obj.Title) }}><BiTask size={20} style={{ marginLeft: "8px", color: "#47d86b" }} /></span></td>
+              <td><button id='down-btn1' onClick={() => downloadCSV([obj])}><IoCloudDownloadOutline size={25} style={{ color: "grey" }} /></button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <div id="tab1" style={{ filter: showTab1 ? 'blur(0px)' : 'blur(20px)' }}>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Email</th>
+            <th>Description</th>
+            <th>Team members</th>
+            <th>Start Date</th>
+            <th>Deadline</th>
+            <th>Tech Stack</th>
+            <th>Deactivate/Activate</th>
+            <th>Daily Task</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{projectData.Title}</td>
+            <td>{projectData.Email}</td>
+            <td>{projectData.Description}</td>
+            <td>{projectData.Team}</td>
+            <td>{projectData.Startdate}</td>
+            <td>{projectData.Deadline}</td>
+            <td>{projectData.Tools}</td>
+            <td>
+              {activationStates[0] ? (
+                <button id='deac-btn1' onClick={() => { handleSoftDelete(projectData.Projectid, 0); notify1(); }} style={{ marginLeft: "15px" }}>Deactivate</button>
+              ) : (
+                <button id='deac-btn2' onClick={() => {cancelSoftDelete(projectData.Projectid, 0); notify2(); }} style={{ marginLeft: "15px" }}>Activate</button>
+              )}
+            </td>
+            <td><span onClick={() => {handleTaskButtonClick(projectData.Title) }} style={{ marginLeft: "5px" }}><BiTask size={20} style={{ marginLeft: "20px", color: "#47d86b" }} /></span></td>
+            <td><button  id='down-btn1' 
+			 onClick={() => downloadCSV([projectData])}><IoCloudDownloadOutline size={25} style={{ color: "grey" }} /></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
 			
 			
 	
@@ -314,48 +334,28 @@ const Admin = () => {
 		<div className={`toggle-bar ${toggleBarOpen ? 'open' : ''}`} >
         <div className="toggle-bar-content">
 		
-		<table id='mini'>
-		
-				<thead>
-					<tr>
-					<th id='thhh'>Usecase</th>
-					<th id='thhh'>Date</th>
-					<th id='thhh'>Time</th>
-					<th id='thhh'>Dailytask</th>
-				
-					{/* <th id='thh'>Deactivate/Activate</th> */}
-					
-					{/* <th id='thhh'><IoCloudDownloadOutline size={26}/></th> */}
-					</tr>
-				</thead>
-				<tbody>
-				{/* {
-                  taskData.map((obj) => (
-                 <tr id='trrr' key={obj.ID}>
-                 <td id='tddd'>{obj.Date.substring(0, 10)}</td>
-                 <td id='tddd'>{obj.Dailytask}</td>
-               
-                <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td>
+		<table id='mini1'>
+  <thead>
+    <tr>
+      <th>Usecase</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Daily Task</th>
     </tr>
-  ))
-} */}
-               {
-                 Array.isArray(taskData) && taskData.map((obj) => (
-                <tr id='trrr' key={obj.ID}>
-				 <td id='tddd'>{obj.usecasetitle}</td>
-                 <td id='tddd'>{obj.Date.substring(0, 10)}</td>
-				 <td id='tddd'>{obj.Time}</td>
-                 <td id='tddd'>{obj.Dailytask}</td>
+  </thead>
+  <tbody>
+    {Array.isArray(taskData) && taskData.map((obj) => (
+      <tr key={obj.ID}>
+        <td>{obj.usecasetitle}</td>
+        <td>{obj.Date.substring(0, 10)}</td>
+        <td>{obj.Time}</td>
+        <td>{obj.Dailytask}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
-                 {/* <td><span onClick={() => downloadCSV([obj])} id='down-btn2'><BsDownload size={22} style={{ color: "#2f9b2f" }}/></span></td> */}
-                 </tr>
-                   ))
-                    }
-	
-					
-					
-				</tbody>
-			</table>
+
           <span onClick={closeToggleBar}><IoClose /></span>
 		  <button onClick={downloadAllCSV2} id='down-al2' >Download csv</button>
         </div>

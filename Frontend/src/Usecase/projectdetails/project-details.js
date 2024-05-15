@@ -47,6 +47,8 @@ function getStyles(name, personName, theme) {
 
 function Projectdetails(){
   const email=useSelector((state)=>state.auth.user.Email)
+  const roleid=useSelector((state)=>state.auth.user.RoleId)
+  console.log("roleid :",roleid);
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
   

@@ -72,8 +72,8 @@ function getStyles(name, personName, theme) {
 function Usecase() {
   
   //for status selecting
-  const [age, setAge] = React.useState('');
-  console.log(age)
+  const [status, setStatus] = React.useState('');
+  // console.log(age)
   const [startDate, setStartDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to hold the selected date
   const location = useLocation();
@@ -102,7 +102,12 @@ function Usecase() {
   };
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    const { name, value } = event.target;
+    setStatus(value); // Update the status state
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value // Update the formData state with the new status value
+    }));
   };
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
@@ -138,6 +143,7 @@ const handleBlur = () => {
     try {
       await axios.post('http://localhost:8000/usecase', formData);
       toast.success("usecase added")
+      
       setFormData({
         summary: '',
         team: [],
@@ -148,6 +154,11 @@ const handleBlur = () => {
         description: '',
         title:title,
       });
+      setTimeout(() => {
+        navigate('/user');
+    }, 2000); // 3000 milliseconds = 3 seconds
+
+
      
     } catch (error) {
       console.error('Error adding use case:', error);
@@ -170,8 +181,10 @@ const handleBlur = () => {
       <Stack spacing={2} direction="row">
       <Button id='back-btn' variant="outlined" onClick={back}>Back</Button>
     </Stack>
-   
-      <span style={{ marginLeft: "90px" }} id='title1'> {title}</span>
+      <div id='contain1'>
+      <span id='title1'> {title}</span>
+      </div>
+     
          <form id='usecase-Form'>
            <tr>
            <TextField id="filled-basic" label="Summary" variant="filled" style={{width:"300px"}}
@@ -255,7 +268,7 @@ const handleBlur = () => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
 
-          value={age}
+          value={status}
           label="Status"
           onChange={handleChange}
           name='status'
